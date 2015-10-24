@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="NewsAgregator:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="NewsAgregator-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="NewsAgregator:war exploded" />
+    </root>
+  </artifact>
+</component>
