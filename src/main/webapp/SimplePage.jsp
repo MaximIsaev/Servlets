@@ -1,5 +1,8 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.io.File" %>
+<%@ page import="java.nio.file.attribute.BasicFileAttributes" %>
+<%@ page import="java.nio.file.Files" %>
+<%@ page import="java.nio.file.Path" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>
@@ -29,15 +32,20 @@
     <%
         final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\";
         final String JSP_URL = "http://localhost:8080/SimplePage.jsp";
+
         File rootImgFolder = new File(IMG_FOLDER_HOME_PATH);
         String fullPath = "";
         Enumeration fields = request.getParameterNames();
+        Cookie cookie = new Cookie("greeting", "Welcome!");
+        response.addCookie(cookie);
+
+
         if (!fields.hasMoreElements()) { // Нет полей
     %>
 
     <form method="POST" action="SimplePage.jsp">
 
-        Folder name: <input type="text" size="20" name="Folder_name"><br>
+        Folder name: <input type="text" size="20" name="Folder_name">
 
         <INPUT TYPE=submit name=submit value="Check folder">
     </form>
@@ -60,16 +68,37 @@
                 }
             }
         } %><br>
-    <p1><b>Folders list in path:<%="\"" + fullPath + "\""%>:</b><br>
+    <p1><b>Content of folder:<%="\"" + fullPath + "\""%>:</b><br><br>
     </p1>
     <%
         File folderExport[] = rootImgFolder.listFiles();
+        BasicFileAttributes attr;
+        Path filePath;
         String[] foldersNames = new String[folderExport.length];
-        for (int i = 0; i < foldersNames.length; i++) {
-            out.println("<li>" + folderExport[i].getName() + "</li><br>");
+        if (foldersNames.length == 0) {
+            out.println("Folder \"img\" is empty");
+        } else {
+            for (int i = 0; i < foldersNames.length; i++) {
+                filePath = folderExport[i].toPath();
+                attr = Files.readAttributes(filePath, BasicFileAttributes.class);
+                out.println("<li>" + folderExport[i].getName());
+                if (attr.creationTime() != null) {
+                    out.println("(Дата создания: " + attr.creationTime() + ")</li><br>");
+                }
+
+            }
         }
+//        Cookie cookies[] = request.getCookies();
+//        int lingth = cookies.length;
+//        for (int i = 0; i < lingth; i++) {
+//            if (cookies[i].getName().equals("greeting")) {
+//                out.println("Cookie value: " + cookies[i].getValue());
+//            }
+//        }
 
     %>
+
+
     <%
         }
     %>
