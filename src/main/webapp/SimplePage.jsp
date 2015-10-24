@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>
 <head>
@@ -22,8 +23,40 @@
     %></h1>
 
     <h2>Please input folder name with images</h2>
-    Folder name:
-    <input type="url">
+
+    <%
+        Enumeration flds = request.getParameterNames();
+        if (!flds.hasMoreElements()) { // Нет полей
+    %>
+
+    <form method="POST" action="SimplePage.jsp">
+        <%--<%--%>
+        <%--for (int i = 0; i < 10; i++) {--%>
+        <%--%>--%>
+
+        Field<%=1%>: <input type="text" size="20" name="Field<%=1%>" value="Value<%=1%>"><br>
+
+        <%--<%--%>
+        <%--}--%>
+        <%--%>--%>
+        <INPUT TYPE=submit name=submit value="Submit"></form>
+    <%
+    } else {
+        while (flds.hasMoreElements()) {
+            String field = (String) flds.nextElement();
+            if (!field.equals("submit")) {
+                String value = request.getParameter(field);
+
+    %>
+
+    <li><%=field%> = <%=value%>
+    </li>
+
+    <%
+                }
+            }
+        }
+    %>
 </center>
 </body>
 </html>
