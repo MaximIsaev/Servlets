@@ -3,25 +3,27 @@
 <html>
 <head>
 </head>
-    <body>
-        <center ><h1>Please input folder name with images</h1>
-        <input type="url">
-        Welcome! The server time is now
+<body>
+<center><h1>Welcome! The server time is now
 
-        <%
-           java.util.Calendar now = java.util.Calendar.getInstance();
-           int hour = now.get(java.util.Calendar.HOUR_OF_DAY);
-           int minute = now.get(java.util.Calendar.MINUTE);
-           if(hour<10)
+    <%
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        int hour = now.get(java.util.Calendar.HOUR_OF_DAY);
+        int minute = now.get(java.util.Calendar.MINUTE);
+        if (hour < 10)
             out.println("0" + hour);
-            else 
+        else
             out.println(hour);
-            out.println(":");
-            if(minute<10)
-                    out.println("0" + minute);
-            else
-                    out.println(minute);
-           %>
-        </center>
-    </body>
+        out.println(":");
+        if (minute < 10)
+            out.println("0" + minute);
+        else
+            out.println(minute);
+    %></h1>
+
+    <h2>Please input folder name with images</h2>
+    Folder name:
+    <input type="url">
+</center>
+</body>
 </html>
