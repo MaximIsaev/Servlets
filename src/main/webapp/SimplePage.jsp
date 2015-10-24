@@ -1,8 +1,10 @@
 <%@ page import="java.util.Enumeration" %>
+<%@ page import="java.io.File" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>
 <head>
+    <title>Choose Folder</title>
 </head>
 <body>
 <center><h1>Welcome! The server time is now
@@ -25,36 +27,50 @@
     <h2>Please input folder name with images</h2>
 
     <%
-        Enumeration flds = request.getParameterNames();
-        if (!flds.hasMoreElements()) { // Нет полей
+        final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\";
+        final String JSP_URL = "http://localhost:8080/SimplePage.jsp";
+        File rootImgFolder = new File(IMG_FOLDER_HOME_PATH);
+        String fullPath = "";
+        Enumeration fields = request.getParameterNames();
+        if (!fields.hasMoreElements()) { // Нет полей
     %>
 
     <form method="POST" action="SimplePage.jsp">
-        <%--<%--%>
-        <%--for (int i = 0; i < 10; i++) {--%>
-        <%--%>--%>
 
-        Field<%=1%>: <input type="text" size="20" name="Field<%=1%>" value="Value<%=1%>"><br>
+        Folder name: <input type="text" size="20" name="Folder_name"><br>
 
-        <%--<%--%>
-        <%--}--%>
-        <%--%>--%>
-        <INPUT TYPE=submit name=submit value="Submit"></form>
+        <INPUT TYPE=submit name=submit value="Check folder">
+    </form>
     <%
     } else {
-        while (flds.hasMoreElements()) {
-            String field = (String) flds.nextElement();
+        while (fields.hasMoreElements()) {
+            String field = (String) fields.nextElement();
             if (!field.equals("submit")) {
-                String value = request.getParameter(field);
-
+                String folderFullPath = IMG_FOLDER_HOME_PATH + request.getParameter(field);
+                out.println("<b>" + folderFullPath + "</b>");
+                fullPath = folderFullPath;
     %>
-
-    <li><%=field%> = <%=value%>
-    </li>
-
+    <br>
     <%
+                File folder = new File(folderFullPath);
+                if (folder.exists() && folder.isDirectory()) {
+                    out.println("Folder " + "\"" + request.getParameter(field) + "\"" + " is Exist!" + "<br>");
+                } else {
+                    out.println("Folder's not exist!");
                 }
             }
+        } %><br>
+    <p1><b>Folders list in path:<%="\"" + fullPath + "\""%>:</b><br>
+    </p1>
+    <%
+        File folderExport[] = rootImgFolder.listFiles();
+        String[] foldersNames = new String[folderExport.length];
+        for (int i = 0; i < foldersNames.length; i++) {
+            out.println("<li>" + folderExport[i].getName() + "</li><br>");
+        }
+
+    %>
+    <%
         }
     %>
 </center>
