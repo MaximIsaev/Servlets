@@ -10,6 +10,12 @@
     <title>Choose Folder</title>
 </head>
 <body>
+
+<%--<%--%>
+<%--request.getSession(true);--%>
+<%--session.setAttribute("ID","11");--%>
+
+<%--%>--%>
 <center><h1>Welcome! The server time is now
 
     <%
@@ -83,18 +89,11 @@
                 attr = Files.readAttributes(filePath, BasicFileAttributes.class);
                 out.println("<li>" + folderExport[i].getName());
                 if (attr.creationTime() != null) {
-                    out.println("(Дата создания: " + attr.creationTime() + ")</li><br>");
+                    out.println("(Дата создания: " + attr.creationTime(). + ")</li><br>");
                 }
 
             }
         }
-//        Cookie cookies[] = request.getCookies();
-//        int lingth = cookies.length;
-//        for (int i = 0; i < lingth; i++) {
-//            if (cookies[i].getName().equals("greeting")) {
-//                out.println("Cookie value: " + cookies[i].getValue());
-//            }
-//        }
 
     %>
 
