@@ -47,8 +47,9 @@
 
     File rootImgFolder = new File(IMG_FOLDER_HOME_PATH);
     Enumeration fields = request.getParameterNames();
-    Cookie cookie = new Cookie("greeting", "Welcome!");
-    response.addCookie(cookie);
+    String fullPath;
+    //Cookie cookie = new Cookie("greeting", "Welcome!");
+    //response.addCookie(cookie);
 
 
     if (!fields.hasMoreElements()) { // Нет полей
