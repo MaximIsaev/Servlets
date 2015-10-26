@@ -20,6 +20,7 @@ public class NewsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         resp.setStatus(200);
         newsServletLog.info("processRequest invoked successfully");
         resp.setContentType("text/html; charset=utf-8");
