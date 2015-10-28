@@ -23,8 +23,9 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
+                    <update>true</update>
                     <server>apache-tomcat-7.0.643</server>
-                    <url>http://localhost:1531/manager/text</url>
+                    <url>http://10.20.9.34:1531/manager/text</url>
                 </configuration>
             </plugin>
             <plugin>
