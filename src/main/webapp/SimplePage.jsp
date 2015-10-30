@@ -1,4 +1,5 @@
 <%@ page import="com.jsp_handler.JspLogic" %>
+<%@ page import="com.news_session.NewsSession" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>
@@ -8,7 +9,7 @@
 <body>
 
 <%
-    if (JspLogic.checkSession(request, response, session, out)) {
+    if (NewsSession.checkSession(request, response, session)) {
 %>
 
 <h1><%=JspLogic.welcomeTitle%>

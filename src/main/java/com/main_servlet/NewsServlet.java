@@ -28,9 +28,7 @@ public class NewsServlet extends HttpServlet {
         XMLParser.parser();
 
         PrintWriter out = resp.getWriter();
-        out.println("Deploy is working <br>");
-
-        out.println();
+        //out.println("Deploy is working <br>");
         JSONContainer.displayJsonObjects(out);
 
     }

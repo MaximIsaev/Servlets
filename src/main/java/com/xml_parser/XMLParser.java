@@ -1,7 +1,8 @@
 package com.xml_parser;
 
 import com.json_news_item.JSONContainer;
-import org.json.JSONObject;
+
+import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,9 +16,9 @@ import java.io.PrintWriter;
 
 public class XMLParser {
 
+    final static String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\imgFile.txt";
     static JSONObject bufferObject;
     static String allImgLinks = "";
-    final static String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\imgFile.txt";
     static File imgLinksFile = new File(IMG_FILE_HOME_PATH);
 
 
@@ -28,30 +29,30 @@ public class XMLParser {
                     newInstance().newDocumentBuilder();
 
 
-            Document doc = xml.parse(new File("I:\\rss.builder.rus.xml"));
+            Document doc = xml.parse(new File("D:\\Tomcat\\rss.builder.xml"));
 
             Element rootElement = doc.getDocumentElement();
 
-            System.out.println(rootElement.getNodeName());
-
-            System.out.println("Child elements: ");
+//            System.out.println(rootElement.getNodeName());
+//
+//            System.out.println("Child elements: ");
             NodeList lst = rootElement.getChildNodes();
             NodeList itemList;
 
 
             for (int i = 0; i < lst.getLength(); i++) {
-                System.out.println(lst.item(i).getNodeName());
+                //System.out.println(lst.item(i).getNodeName());
                 NodeList channelNodes = lst.item(i).getChildNodes();
-                System.out.println("Channels child elements: " + channelNodes.getLength());
+                //System.out.println("Channels child elements: " + channelNodes.getLength());
                 int itemCount = xmlItemCounter(channelNodes);
                 for (int j = channelNodes.getLength() - itemCount; j < channelNodes.getLength(); j++) {
-                    System.out.println(channelNodes.item(j).getNodeName() + (j - 1));
+                    //System.out.println(channelNodes.item(j).getNodeName() + (j - 1));
                     itemList = channelNodes.item(j).getChildNodes();
                     displayItemChild(itemList);
                 }
             }
 
-            System.out.println("Full Links = " + allImgLinks);
+            //System.out.println("Full Links = " + allImgLinks);
             write(allImgLinks);
 
 
@@ -72,7 +73,7 @@ public class XMLParser {
                 checkDescription(list.item(i));
             } else {
                 jsonObject.put("" + list.item(i).getNodeName() + "", list.item(i).getTextContent());
-                System.out.println(" " + list.item(i).getNodeName() + ":" + list.item(i).getTextContent());
+                //System.out.println(" " + list.item(i).getNodeName() + ":" + list.item(i).getTextContent());
             }
         }
         JSONContainer.addNewJsonRecord(jsonObject);
@@ -96,8 +97,8 @@ public class XMLParser {
         String ImgLink = "";
 
         bufferObject.put("" + descriptionNode.getNodeName() + "", descriptionNode.getTextContent());
-        System.out.println("" + descriptionNode.getNodeName() + ":" + descriptionNode.getTextContent());
-        System.out.println("checkDescription invoked successfully");
+        //System.out.println("" + descriptionNode.getNodeName() + ":" + descriptionNode.getTextContent());
+        //System.out.println("checkDescription invoked successfully");
 
         for (int i = 0; i < descriptionNodeChildNodes.getLength(); i++) {
             String imgString = descriptionNodeChildNodes.item(i).getNodeValue();
@@ -109,7 +110,7 @@ public class XMLParser {
                     for (int k = 5; k < subStringImg.length - 1; k++) {
                         ImgLink = ImgLink + subStringImg[k];
                     }
-                    System.out.println("IMG Link = " + ImgLink);
+                    //System.out.println("IMG Link = " + ImgLink);
                     allImgLinks = allImgLinks + ImgLink + "\n";
                 }
             }

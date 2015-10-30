@@ -1,6 +1,8 @@
 package com.jsp_handler;
 
 
+import com.news_session.NewsSession;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -14,9 +16,9 @@ import javax.servlet.jsp.*;
 
 public class JspLogic {
 
+    static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\";
     public static String welcomeTitle = "Welcome! The server time is now";
     public static String serverTime = "Server time: ";
-    static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\images\\";
     static Enumeration fields;
     static String fullPath;
     static File rootImgFolder = new File(System.getenv("CATALINA_HOME") + "\\webapps\\images");
@@ -37,18 +39,6 @@ public class JspLogic {
             out.println(minute);
     }
 
-    public static boolean checkSession(HttpServletRequest request, HttpServletResponse response, HttpSession session, JspWriter out) throws IOException {
-        request.getSession(true);
-        if (session.getAttribute("ID") == null) {
-            session.setAttribute("ID", "1");
-            return true;
-        } else if (session.getAttribute("ID") == "1") {
-            return false;
-        } else {
-            return false;
-        }
-
-    }
 
 
     public static boolean getParameters(HttpServletRequest request) {
