@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/get_news_feed_file/DownloadNewsFeedFile.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/json_news_item/JSONContainer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/json_news_item/JsonConverter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jsp_handler/JspLogic.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/logging/LoggerListner.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/main_servlet/NewsServlet.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_config/ImagesLinksContainer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_config/NewsLinks.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_filters/CharResponseWrapper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_filters/FilteringByAuthor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_filters/NewsFilter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_item/FillNews.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_item/News.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_item/NewsContainer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/news_session/NewsSession.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/xml_parser/XMLParser.java" charset="UTF-8" />
+  </component>
+</project>

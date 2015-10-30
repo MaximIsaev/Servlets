@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class NewsLinks {
 
-    private static ArrayList<String> newsListLink = new ArrayList<String>();
+    private ArrayList<String> newsListLink = new ArrayList<String>();
 
     public void setNewsList(String link) {
 

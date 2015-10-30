@@ -1,4 +1,5 @@
 <%@ page import="com.jsp_handler.JspLogic" %>
+<%@ page import="com.news_session.NewsSession" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>
@@ -8,7 +9,8 @@
 <body>
 
 <%
-    if (JspLogic.checkSession(request, response, session, out)) {
+    NewsSession.checkSession(request, response, session);
+    if (NewsSession.getSessionFlag()) {
 %>
 
 <h1><%=JspLogic.welcomeTitle%>
@@ -18,6 +20,7 @@
         }
         JspLogic.serverTime(out);
     %>
+    <br>
 
 </h1>
 <br>
@@ -39,6 +42,7 @@
 } else {
     JspLogic.checkFolder(request, out);
 %>
+<%=JspLogic.getExistExpression()%>
 
 <br>
 
@@ -46,7 +50,10 @@
 </p1>
 
 <%
-        JspLogic.displayImgFolderContent(out);
+    JspLogic.displayImgFolderContent(out);
+%>
+<br>
+<%
     }
 %>
 </body>

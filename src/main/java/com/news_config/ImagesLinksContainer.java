@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ImagesLinksContainer {
 
-    private static ArrayList<String> imgListLink = new ArrayList<String>();
+    private ArrayList<String> imgListLink = new ArrayList<String>();
 
     public void setImgList(String link) {
 
