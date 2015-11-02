@@ -41,22 +41,15 @@ public class DownloadNewsFeedFile {
 
     public static boolean validateOutputFeedFile() {
 
-        try {
-            if (createNewsFolder()) {
-                if (!outputFeedFile.exists()) {
-                    outputFeedFile.createNewFile();
-                    return true;
-                }
-            } else {
-                if (!outputFeedFile.exists()) {
-                    outputFeedFile.createNewFile();
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        boolean flag = false;
+
+        if (createNewsFolder()) {
+            flag = createOutputFeedFile();
+
+        } else {
+            flag = createOutputFeedFile();
         }
-        return false;
+        return flag;
     }
 
     public static void write(ReadableByteChannel in, String strPath) {
@@ -80,5 +73,17 @@ public class DownloadNewsFeedFile {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean createOutputFeedFile() {
+
+        try {
+            if (!outputFeedFile.exists()) {
+                outputFeedFile.createNewFile();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }
