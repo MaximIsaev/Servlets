@@ -11,16 +11,30 @@ import java.io.PrintWriter;
 
 public class FilteringByAuthor {
 
-    static final String AUTHOR_NAME = "";
+    private String authorName;
+    JSONContainer jsonContainer;
 
-    public static void filter(JSONArray jsonArray, PrintWriter writer) throws UnsupportedEncodingException {
+    public FilteringByAuthor(String authorName, JSONContainer jsonContainer) {
+        this.authorName = authorName;
+        this.jsonContainer = jsonContainer;
+    }
+
+
+
+    public void filter(JSONArray jsonArray, PrintWriter writer) throws UnsupportedEncodingException {
         JSONObject jsonObject;
 
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
-            if (jsonObject.get("author").equals(AUTHOR_NAME) || AUTHOR_NAME.equals("")) {
-                writer.write(JSONContainer.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
-            }
+            displayThroughFilter(jsonObject, writer);
+
+        }
+    }
+
+    public void displayThroughFilter(JSONObject jsonObject, PrintWriter writer) {
+
+        if (jsonObject.get("author").equals(authorName) || authorName.equals("")) {
+            writer.write(jsonContainer.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
         }
     }
 }

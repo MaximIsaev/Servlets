@@ -3,21 +3,24 @@ package com.news_filters;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 @WebFilter(filterName = "Filter", urlPatterns = "/news")
 public class NewsFilter implements Filter {
 
+    FilteringByAuthor filteringByAuthor;
+
     protected FilterConfig config;
     JSONParser parser = new JSONParser();
     JSONArray jsonArray = new JSONArray();
+    private static Logger log = Logger.getLogger(NewsFilter.class.getName());
 
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
@@ -39,15 +42,28 @@ public class NewsFilter implements Filter {
 
         if (newResponse instanceof CharResponseWrapper) {
             String text = newResponse.toString();
-            if (text != null) {
-                try {
-                    Object object = parser.parse(text);
-                    jsonArray = (JSONArray) object;
-                    FilteringByAuthor.filter(jsonArray, response.getWriter());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+            checkText(text, response);
         }
+    }
+
+    public void checkText(String text, ServletResponse response) throws IOException {
+        if (text != null) {
+            filteringJsonArray(text, response);
+        } else {
+            response.getWriter().write("No text in response!");
+        }
+    }
+
+    public void filteringJsonArray(String text, ServletResponse response) {
+
+        try {
+            Object object = parser.parse(text);
+            jsonArray = (JSONArray) object;
+            filteringByAuthor.filter(jsonArray, response.getWriter());
+        } catch (Exception e) {
+            log.info("Execute ParseException or IOException in NewsFilter.java");
+            e.printStackTrace();
+        }
+
     }
 }

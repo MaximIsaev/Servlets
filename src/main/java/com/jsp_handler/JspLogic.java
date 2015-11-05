@@ -42,27 +42,14 @@ public class JspLogic {
     public static boolean getParameters(HttpServletRequest request) {
 
         fields = request.getParameterNames();
-
         return fields.hasMoreElements();
 
     }
 
     public static void checkFolder(HttpServletRequest request, JspWriter out) throws IOException {
-
-
         while (fields.hasMoreElements()) {
             String field = (String) fields.nextElement();
-            if (!field.equals("submit")) {
-                String folderFullPath = IMG_FOLDER_HOME_PATH + request.getParameter(field);
-                fullPath = IMG_FOLDER_HOME_PATH;
-                File folder = new File(folderFullPath);
-                if (folder.exists() && folder.isDirectory()) {
-                    existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!<br>";
-                } else {
-                    existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!<br>";
-                }
-
-            }
+            checkSubmitField(field, request);
         }
     }
 
@@ -99,6 +86,26 @@ public class JspLogic {
 
             }
         }
+    }
+
+    public static void checkSubmitField(String field, HttpServletRequest request) {
+
+        if (!field.equals("submit")) {
+            String folderFullPath = IMG_FOLDER_HOME_PATH + request.getParameter(field);
+            fullPath = IMG_FOLDER_HOME_PATH;
+            File folder = new File(folderFullPath);
+            checkFolderExist(folder, request, field, folderFullPath);
+        }
+    }
+
+    public static void checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
+
+        if (folder.exists() && folder.isDirectory()) {
+            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!<br>";
+        } else {
+            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!<br>";
+        }
+
     }
 
 }
