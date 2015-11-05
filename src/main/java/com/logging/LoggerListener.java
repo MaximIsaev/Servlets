@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 @WebListener
-public class LoggerListner implements HttpSessionListener, ServletContextListener, ServletContextAttributeListener {
+public class LoggerListener implements HttpSessionListener, ServletContextListener, ServletContextAttributeListener {
 
     private static int totalActiveSessions;
 

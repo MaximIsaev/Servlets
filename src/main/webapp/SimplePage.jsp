@@ -9,16 +9,18 @@
 <body>
 
 <%
-    NewsSession.checkSession(request, response, session);
-    if (NewsSession.getSessionFlag()) {
+    JspLogic jspLogic = new JspLogic();
+    NewsSession newsSession = new NewsSession();
+    newsSession.checkSession(request);
+    if (newsSession.getSessionFlag()) {
 %>
 
-<h1><%=JspLogic.welcomeTitle%>
+<h1><%=jspLogic.getWelcomeTitle()%>
     <%
         } else {
-            out.println(JspLogic.serverTime);
+            out.println(jspLogic.getServerTimeTitle());
         }
-        JspLogic.serverTime(out);
+        jspLogic.serverTime(out);
     %>
     <br>
 
@@ -26,7 +28,7 @@
 <br>
 
 <%
-    if (!JspLogic.getParameters(request)) { // Нет полей
+    if (!jspLogic.getParameters(request)) { // Нет полей
 %>
 
 <form method="POST" action="SimplePage.jsp">
@@ -40,17 +42,17 @@
 
 <%
 } else {
-    JspLogic.checkFolder(request, out);
+    jspLogic.checkFolder(request, out);
 %>
-<%=JspLogic.getExistExpression()%>
+<%=jspLogic.getExistExpression()%>
 
 <br>
 
-<p1><b>Content of folder:<%="\"" + JspLogic.getImgFolderHomePath() + "\""%>:</b><br><br>
+<p1><b>Content of folder:<%="\"" + jspLogic.getImgFolderHomePath() + "\""%>:</b><br><br>
 </p1>
 
 <%
-    JspLogic.displayImgFolderContent(out);
+    jspLogic.displayImgFolderContent(out);
 %>
 <br>
 <%

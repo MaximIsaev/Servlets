@@ -23,26 +23,24 @@ public class XMLParser {
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);
     File folder = new File(IMG_FOLDER_HOME_PATH);
-    JSONContainer jsonContainer;
+    static JSONContainer jsonContainer = new JSONContainer();
 
-    public XMLParser(JSONContainer jsonContainer){
-        this.jsonContainer = jsonContainer;
-    }
-
-    public JSONContainer getJsonContainer(){
+    public static JSONContainer getJsonContainer() {
         return jsonContainer;
     }
 
 
     public void parse() {
+
+        DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile();
         try {
 
             DocumentBuilder xml = DocumentBuilderFactory.
                     newInstance().newDocumentBuilder();
 
-            DownloadNewsFeedFile.download(DownloadNewsFeedFile.getNewsFeedsUrl());
+            downloadNewsFeedFile.download(DownloadNewsFeedFile.getNewsFeedsUrl());
 
-            Document doc = xml.parse(DownloadNewsFeedFile.getOutputFeedFile());
+            Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
 
 
             Element rootElement = doc.getDocumentElement();

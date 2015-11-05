@@ -13,14 +13,14 @@ import javax.servlet.jsp.*;
 public class JspLogic {
 
     static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\";
-    public static String welcomeTitle = "Welcome! The server time is now";
-    public static String serverTime = "Server time: ";
-    static Enumeration fields;
-    static String fullPath;
-    static File rootImgFolder = new File(System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\");
-    static private String existExpression;
+    private static final String welcomeTitle = "Welcome! The server time is now";
+    static final String serverTimeTitle = "Server time: ";
+    Enumeration fields;
+    String fullPath;
+    File rootImgFolder = new File(System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\");
+    private String existExpression;
 
-    public static void serverTime(JspWriter out) throws IOException {
+    public void serverTime(JspWriter out) throws IOException {
 
         java.util.Calendar now = java.util.Calendar.getInstance();
         int hour = now.get(java.util.Calendar.HOUR_OF_DAY);
@@ -39,31 +39,39 @@ public class JspLogic {
     }
 
 
-    public static boolean getParameters(HttpServletRequest request) {
+    public boolean getParameters(HttpServletRequest request) {
 
         fields = request.getParameterNames();
         return fields.hasMoreElements();
 
     }
 
-    public static void checkFolder(HttpServletRequest request, JspWriter out) throws IOException {
+    public void checkFolder(HttpServletRequest request, JspWriter out) throws IOException {
         while (fields.hasMoreElements()) {
             String field = (String) fields.nextElement();
             checkSubmitField(field, request);
         }
     }
 
-    public static String getExistExpression() {
+    public String getExistExpression() {
         return existExpression;
     }
 
 
-    public static String getImgFolderHomePath() {
+    public String getImgFolderHomePath() {
         return IMG_FOLDER_HOME_PATH;
     }
 
+    public String getWelcomeTitle(){
+        return  welcomeTitle;
+    }
 
-    public static void displayImgFolderContent(JspWriter out) throws IOException {
+    public String getServerTimeTitle(){
+        return serverTimeTitle;
+    }
+
+
+    public void displayImgFolderContent(JspWriter out) throws IOException {
         if (!rootImgFolder.exists()) {
             rootImgFolder.mkdir();
         }
@@ -88,7 +96,7 @@ public class JspLogic {
         }
     }
 
-    public static void checkSubmitField(String field, HttpServletRequest request) {
+    public void checkSubmitField(String field, HttpServletRequest request) {
 
         if (!field.equals("submit")) {
             String folderFullPath = IMG_FOLDER_HOME_PATH + request.getParameter(field);
@@ -98,7 +106,7 @@ public class JspLogic {
         }
     }
 
-    public static void checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
+    public void checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
 
         if (folder.exists() && folder.isDirectory()) {
             existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!<br>";

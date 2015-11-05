@@ -20,10 +20,9 @@ public class FilteringByAuthor {
     }
 
 
-
     public void filter(JSONArray jsonArray, PrintWriter writer) throws UnsupportedEncodingException {
-        JSONObject jsonObject;
 
+        JSONObject jsonObject;
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
             displayThroughFilter(jsonObject, writer);

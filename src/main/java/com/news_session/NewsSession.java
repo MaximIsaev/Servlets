@@ -7,10 +7,10 @@ import javax.servlet.http.HttpSession;
 
 public class NewsSession {
 
-    private static boolean sessionFlag = false;
-    private static long userCount = 0;
+    private boolean sessionFlag = false;
+    private long userCount = 0;
 
-    public static void checkSession(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public void checkSession(HttpServletRequest request) {
 
         final String SESSION_ID_KEY = "sessionPeekCount";
 
@@ -31,7 +31,7 @@ public class NewsSession {
         }
     }
 
-    public static boolean getSessionFlag() {
+    public boolean getSessionFlag() {
         return sessionFlag;
     }
 

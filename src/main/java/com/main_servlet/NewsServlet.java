@@ -1,8 +1,5 @@
 package com.main_servlet;
 
-import com.json_news_item.JSONContainer;
-import com.news_filters.FilteringByAuthor;
-import com.news_filters.NewsFilter;
 import com.xml_parser.XMLParser;
 
 import javax.servlet.ServletException;
@@ -16,10 +13,7 @@ import java.io.PrintWriter;
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
-    JSONContainer jsonContainer = new JSONContainer();
-    XMLParser xmlParser = new XMLParser(jsonContainer);
-    FilteringByAuthor filteringByAuthor = new FilteringByAuthor("", jsonContainer);
-
+    XMLParser xmlParser = new XMLParser();
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -29,8 +23,7 @@ public class NewsServlet extends HttpServlet {
         xmlParser.parse();
 
         PrintWriter out = resp.getWriter();
-        jsonContainer.displayJsonObjects(out);
-
+        XMLParser.getJsonContainer().displayContent(out);
     }
 
 

@@ -18,7 +18,7 @@ public class JSONContainer {
         return jsonNewsList;
     }
 
-    public void displayJsonObjects(PrintWriter out) {
+    public void displayContent(PrintWriter out) {
 
 
         out.print(jsonNewsList.toJSONString());
