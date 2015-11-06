@@ -1,27 +1,43 @@
 package com.json_news_item;
 
 
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class JSONContainer {
-    private static ArrayList<JSONObject> jsonNewsList = new ArrayList<JSONObject>();
 
-    public static void addNewJsonRecord(JSONObject rec) {
+    private static JSONArray jsonNewsList = new JSONArray();
+
+    public void addNewJsonRecord(JSONObject rec) {
         jsonNewsList.add(rec);
     }
 
-    public static ArrayList<JSONObject> getJsonNewsList() {
+    public JSONArray getJsonNewsList() {
         return jsonNewsList;
     }
 
-    public static void displayJsonObjects(PrintWriter out) {
-        for (int i = 0; i < jsonNewsList.size(); i++) {
-            out.println(jsonNewsList.get(i));
-        }
-        out.close();
+    public void displayContent(PrintWriter out) {
 
+
+        out.print(jsonNewsList.toJSONString());
+    }
+
+    //Using for easy viewing
+    public String encodeHtmlTag(String tag) {
+        int length = tag.length();
+        StringBuffer encodedTag = new StringBuffer(2 * length);
+        for (int i = 0; i < length; i++) {
+            char c = tag.charAt(i);
+            if (c == '<') {
+                encodedTag.append("&lt;");
+            } else if (c == '>') {
+                encodedTag.append("&gt;");
+            } else if (c == '&') {
+                encodedTag.append("&amp;");
+            } else encodedTag.append(c);
+        }
+        return encodedTag.toString();
     }
 }
