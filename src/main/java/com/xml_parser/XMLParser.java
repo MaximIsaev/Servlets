@@ -38,7 +38,7 @@ public class XMLParser {
             DocumentBuilder xml = DocumentBuilderFactory.
                     newInstance().newDocumentBuilder();
 
-            downloadNewsFeedFile.download(DownloadNewsFeedFile.getNewsFeedsUrl());
+//            downloadNewsFeedFile.download(DownloadNewsFeedFile.getNewsFeedsUrl());
 
             Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
 
