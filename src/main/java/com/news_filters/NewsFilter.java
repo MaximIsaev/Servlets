@@ -3,19 +3,21 @@ package com.news_filters;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 
-@WebFilter(filterName = "Filter", urlPatterns = "/news")
 public class NewsFilter implements Filter {
 
-    FilteringByAuthor filteringByAuthor = new FilteringByAuthor("");
+    ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+
+    FilteringByAuthor filteringByAuthor = (FilteringByAuthor) context.getBean("filterByAuthor");
 
     protected FilterConfig config;
     JSONParser parser = new JSONParser();

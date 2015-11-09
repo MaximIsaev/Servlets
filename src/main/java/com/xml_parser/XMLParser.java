@@ -1,9 +1,11 @@
 package com.xml_parser;
 
 import com.get_news_feed_file.DownloadNewsFeedFile;
-import com.json_news_item.JSONContainer;
+import com.json_storage.JSONStorage;
 
 import org.json.simple.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,28 +19,30 @@ import java.io.PrintWriter;
 
 public class XMLParser {
 
+    ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+
     final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
     final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
     JSONObject bufferObject;
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);
     File folder = new File(IMG_FOLDER_HOME_PATH);
-    JSONContainer jsonContainer = new JSONContainer();
+    JSONStorage jsonStorage = (JSONStorage) context.getBean("jsonStorage");
 
-    public JSONContainer getJsonContainer() {
-        return jsonContainer;
+    public JSONStorage getJsonStorage() {
+        return jsonStorage;
     }
 
 
     public void parse() {
 
-        DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile();
+        DownloadNewsFeedFile downloadNewsFeedFile = (DownloadNewsFeedFile) context.getBean("downloadNewsFeedFile");
         try {
 
             DocumentBuilder xml = DocumentBuilderFactory.
                     newInstance().newDocumentBuilder();
 
-            downloadNewsFeedFile.download(DownloadNewsFeedFile.getNewsFeedsUrl());
+//            downloadNewsFeedFile.download(downloadNewsFeedFile.getNewsFeedsUrl());
 
             Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
 
@@ -81,7 +85,7 @@ public class XMLParser {
                 jsonObject.put("" + list.item(i).getNodeName() + "", list.item(i).getTextContent());
             }
         }
-        jsonContainer.addNewJsonRecord(jsonObject);
+        jsonStorage.addNewJsonRecord(jsonObject);
     }
 
 

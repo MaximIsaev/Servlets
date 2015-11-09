@@ -1,4 +1,4 @@
-package com.json_news_item;
+package com.json_storage;
 
 
 import org.json.simple.JSONArray;
@@ -6,20 +6,20 @@ import org.json.simple.JSONObject;
 
 import java.io.PrintWriter;
 
-public class JSONContainer {
+public class JSONStorage {
 
-    private JSONArray jsonNewsList = new JSONArray();
+    private JSONArray jsonNewsStorage = new JSONArray();
 
     public void addNewJsonRecord(JSONObject rec) {
-        jsonNewsList.add(rec);
+        jsonNewsStorage.add(rec);
     }
 
-    public JSONArray getJsonNewsList() {
-        return jsonNewsList;
+    public JSONArray getJsonNewsStorage() {
+        return jsonNewsStorage;
     }
 
     public void displayContent(PrintWriter out) {
-        out.print(jsonNewsList.toJSONString());
+        out.print(jsonNewsStorage.toJSONString());
     }
 
     //Using for easy viewing

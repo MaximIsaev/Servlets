@@ -10,7 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Enumeration;
 import javax.servlet.jsp.*;
 
-public class JspLogic {
+public class DynamicJspContent {
 
     static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\";
     private static final String welcomeTitle = "Welcome! The server time is now";

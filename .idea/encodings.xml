@@ -2,8 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java/com/get_news_feed_file/DownloadNewsFeedFile.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/json_news_item/JSONContainer.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/jsp_handler/JspLogic.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/json_storage/JSONStorage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jsp_handler/DynamicJspContent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/logging/LoggerListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/main_servlet/NewsServlet.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/news_config/ImagesLinksContainer.java" charset="UTF-8" />
