@@ -11,12 +11,10 @@ import java.io.PrintWriter;
 
 public class FilteringByAuthor {
 
-    private String authorName;
-    JSONContainer jsonContainer;
+    private String authorName = "";
 
-    public FilteringByAuthor(String authorName, JSONContainer jsonContainer) {
+    public FilteringByAuthor(String authorName) {
         this.authorName = authorName;
-        this.jsonContainer = jsonContainer;
     }
 
 
@@ -33,7 +31,7 @@ public class FilteringByAuthor {
     public void displayThroughFilter(JSONObject jsonObject, PrintWriter writer) {
 
         if (jsonObject.get("author").equals(authorName) || authorName.equals("")) {
-            writer.write(jsonContainer.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
+            writer.write(JSONContainer.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
         }
     }
 }

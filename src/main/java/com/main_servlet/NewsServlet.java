@@ -23,7 +23,7 @@ public class NewsServlet extends HttpServlet {
         xmlParser.parse();
 
         PrintWriter out = resp.getWriter();
-        XMLParser.getJsonContainer().displayContent(out);
+        xmlParser.getJsonContainer().displayContent(out);
     }
 
 

@@ -1,7 +1,6 @@
 package com.news_filters;
 
 
-import com.xml_parser.XMLParser;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 @WebFilter(filterName = "Filter", urlPatterns = "/news")
 public class NewsFilter implements Filter {
 
-    FilteringByAuthor filteringByAuthor = new FilteringByAuthor("",XMLParser.getJsonContainer());
+    FilteringByAuthor filteringByAuthor = new FilteringByAuthor("");
 
     protected FilterConfig config;
     JSONParser parser = new JSONParser();

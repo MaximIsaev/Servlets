@@ -17,15 +17,15 @@ import java.io.PrintWriter;
 
 public class XMLParser {
 
-    static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
-    static final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
+    final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
+    final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
     JSONObject bufferObject;
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);
     File folder = new File(IMG_FOLDER_HOME_PATH);
-    static JSONContainer jsonContainer = new JSONContainer();
+    JSONContainer jsonContainer = new JSONContainer();
 
-    public static JSONContainer getJsonContainer() {
+    public JSONContainer getJsonContainer() {
         return jsonContainer;
     }
 
@@ -54,15 +54,13 @@ public class XMLParser {
 
             }
 
-            write(allImgLinks);
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void getItemsChildNodes(NodeList channelNodes, int itemCount) {
+    public void getItemsChildNodes(NodeList channelNodes, int itemCount) throws IOException {
 
         NodeList itemList;
         for (int j = channelNodes.getLength() - itemCount; j < channelNodes.getLength(); j++) {
@@ -71,7 +69,7 @@ public class XMLParser {
         }
     }
 
-    public void displayItemChild(NodeList list) {
+    public void displayItemChild(NodeList list) throws IOException {
 
         JSONObject jsonObject = new JSONObject();
         bufferObject = jsonObject;
@@ -98,7 +96,7 @@ public class XMLParser {
         return counterItem;
     }
 
-    public void imgURLSelection(Node descriptionNode) {
+    public void imgURLSelection(Node descriptionNode) throws IOException {
 
         NodeList descriptionNodeChildNodes = descriptionNode.getChildNodes();
 
@@ -109,7 +107,7 @@ public class XMLParser {
 
     }
 
-    public void getDescriptionContent(NodeList descriptionNodeChildNodes) {
+    public void getDescriptionContent(NodeList descriptionNodeChildNodes) throws IOException {
 
         for (int i = 0; i < descriptionNodeChildNodes.getLength(); i++) {
             String imgString = descriptionNodeChildNodes.item(i).getNodeValue();
@@ -118,7 +116,7 @@ public class XMLParser {
         }
     }
 
-    public void getCharsFromSRCString(String[] imgStringArray) {
+    public void getCharsFromSRCString(String[] imgStringArray) throws IOException {
 
         char[] subStringImg;
         for (int j = 0; j < imgStringArray.length; j++) {
@@ -129,23 +127,22 @@ public class XMLParser {
         }
     }
 
-    public void concatCharIntoImgURL(char[] subStringImg) {
+    public void concatCharIntoImgURL(char[] subStringImg) throws IOException {
 
         String ImgLink = "";
         for (int k = 5; k < subStringImg.length - 1; k++) {
             ImgLink = ImgLink + subStringImg[k];
         }
         allImgLinks = allImgLinks + ImgLink + "\n";
+        write(allImgLinks);
     }
 
     public void write(String text) throws IOException {
 
-        if (folder.exists()) {
-            createImgFile(text);
-        } else {
+        if (!folder.exists()) {
             folder.mkdirs();
-            createImgFile(text);
         }
+        createImgFile(text);
     }
 
     public void createImgFile(String text) throws IOException {

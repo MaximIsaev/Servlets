@@ -2,33 +2,34 @@ package com.news_session;
 
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class NewsSession {
 
+    final String SESSION_ID_KEY = "sessionPeekCount";
     private boolean sessionFlag = false;
     private long userCount = 0;
 
     public void checkSession(HttpServletRequest request) {
 
-        final String SESSION_ID_KEY = "sessionPeekCount";
 
         HttpSession httpSession = request.getSession(true);
 
         Integer ival = (Integer) httpSession.getAttribute(SESSION_ID_KEY);
         if (ival == null) {
-            ival = new Integer(1);
-            httpSession.setAttribute(SESSION_ID_KEY, ival);
-            userCount++;
-            sessionFlag = true;
-
+            setSessionAttribute(httpSession, 1);
         } else {
-            ival = new Integer(ival.intValue() + 1);
-            httpSession.setAttribute(SESSION_ID_KEY, ival);
-            userCount++;
-            sessionFlag = false;
+            setSessionAttribute(httpSession, ival.intValue() + 1);
         }
+    }
+
+    public void setSessionAttribute(HttpSession httpSession, int value) {
+
+        Integer ival = new Integer(value);
+        httpSession.setAttribute(SESSION_ID_KEY, ival);
+        userCount++;
+        sessionFlag = true;
+
     }
 
     public boolean getSessionFlag() {
