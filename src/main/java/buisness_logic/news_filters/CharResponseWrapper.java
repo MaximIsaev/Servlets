@@ -1,4 +1,4 @@
-package com.news_filters;
+package buisness_logic.news_filters;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;

@@ -1,7 +1,7 @@
-package com.controller;
+package buisness_logic.controller;
 
 
-import com.xml_parser.XMLParser;
+import buisness_logic.xml_parser.XMLParser;
 import org.json.simple.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

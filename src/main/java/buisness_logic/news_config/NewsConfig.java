@@ -1,9 +1,9 @@
-package com.news_config;
+package buisness_logic.news_config;
 
 
-import com.json_storage.JSONStorage;
-import com.news_filters.FilteringByAuthor;
-import com.xml_parser.XMLParser;
+import buisness_logic.json_storage.JSONStorage;
+import buisness_logic.news_filters.FilteringByAuthor;
+import buisness_logic.xml_parser.XMLParser;
 
 public class NewsConfig {
 

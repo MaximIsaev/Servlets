@@ -1,4 +1,4 @@
-package com.json_storage;
+package buisness_logic.json_storage;
 
 
 import org.json.simple.JSONArray;

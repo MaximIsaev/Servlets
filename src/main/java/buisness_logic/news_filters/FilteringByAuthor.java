@@ -1,7 +1,7 @@
-package com.news_filters;
+package buisness_logic.news_filters;
 
 
-import com.json_storage.JSONStorage;
+import buisness_logic.json_storage.JSONStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

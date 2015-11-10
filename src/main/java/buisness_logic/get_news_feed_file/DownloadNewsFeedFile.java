@@ -1,4 +1,4 @@
-package com.get_news_feed_file;
+package buisness_logic.get_news_feed_file;
 
 
 import java.io.*;

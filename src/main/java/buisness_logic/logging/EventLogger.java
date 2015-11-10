@@ -1,4 +1,4 @@
-package com.logging;
+package buisness_logic.logging;
 
 
 public interface EventLogger {

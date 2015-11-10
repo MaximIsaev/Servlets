@@ -1,4 +1,4 @@
-package com.news_filters;
+package buisness_logic.news_filters;
 
 
 import org.json.simple.JSONArray;

@@ -1,7 +1,7 @@
-package com.xml_parser;
+package buisness_logic.xml_parser;
 
-import com.get_news_feed_file.DownloadNewsFeedFile;
-import com.json_storage.JSONStorage;
+import buisness_logic.get_news_feed_file.DownloadNewsFeedFile;
+import buisness_logic.json_storage.JSONStorage;
 import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -22,6 +22,7 @@ public class XMLParser {
 
     final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
     final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
+
     JSONObject bufferObject;
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);

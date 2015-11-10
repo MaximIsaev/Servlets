@@ -1,4 +1,4 @@
-package com.jsp_handler;
+package buisness_logic.jsp_handler;
 
 
 import javax.servlet.http.HttpServletRequest;

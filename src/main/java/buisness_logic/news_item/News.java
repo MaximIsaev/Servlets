@@ -1,4 +1,4 @@
-package com.news_item;
+package buisness_logic.news_item;
 
 public class News {
 

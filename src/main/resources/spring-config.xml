@@ -6,16 +6,22 @@
     <context:annotation-config/>
     <context:component-scan base-package="com"/>
 
-    <bean id="loggerListener" class="com.logging.LoggerListener"/>
-    <bean id="consoleEventLogger" class="com.logging.ConsoleEventLogger"/>
+    <bean id="loggerListener" class="buisness_logic.logging.LoggerListener"/>
+    <bean id="consoleEventLogger" class="buisness_logic.logging.ConsoleEventLogger"/>
 
-    <bean id="xmlParser" class="com.xml_parser.XMLParser" scope="prototype"/>
-    <bean id="jsonStorage" class="com.json_storage.JSONStorage" scope="prototype"/>
-    <bean id="filterByAuthor" class="com.news_filters.FilteringByAuthor">
+    <bean id="xmlParser" class="buisness_logic.xml_parser.XMLParser" scope="prototype"/>
+    <bean id="jsonStorage" class="buisness_logic.json_storage.JSONStorage" scope="prototype"/>
+    <bean id="filterByAuthor" class="buisness_logic.news_filters.FilteringByAuthor">
         <constructor-arg value=""/>
     </bean>
 
-    <bean id="dynamicJspContent" class="com.jsp_handler.DynamicJspContent" scope="prototype"/>
-    <bean id="newsSession" class="com.news_session.NewsSession" scope="prototype"/>
-    <bean id="downloadNewsFeedFile" class="com.get_news_feed_file.DownloadNewsFeedFile" scope="prototype"/>
+    <bean id="dynamicJspContent" class="buisness_logic.jsp_handler.DynamicJspContent" scope="prototype"/>
+    <bean id="newsSession" class="buisness_logic.news_session.NewsSession" scope="prototype"/>
+    <bean id="downloadNewsFeedFile" class="buisness_logic.get_news_feed_file.DownloadNewsFeedFile" scope="prototype"/>
+
+    <bean id="displayConfig" class="configuration_interface.DisplayConfig" scope="prototype"/>
+    <bean id="sourceConfig" class="configuration_interface.SourceConfig" scope="prototype">
+        <constructor-arg value="NewsFeed.xml"/>
+    </bean>
+
 </beans>
