@@ -59,4 +59,11 @@ public class News {
     }
 
 
+    public String getLink() {
+        return link;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
 }

@@ -2,7 +2,6 @@ package com.xml_parser;
 
 import com.get_news_feed_file.DownloadNewsFeedFile;
 import com.json_storage.JSONStorage;
-
 import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -41,8 +40,6 @@ public class XMLParser {
 
             DocumentBuilder xml = DocumentBuilderFactory.
                     newInstance().newDocumentBuilder();
-
-//            downloadNewsFeedFile.download(downloadNewsFeedFile.getNewsFeedsUrl());
 
             Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
 

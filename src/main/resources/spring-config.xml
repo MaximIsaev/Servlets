@@ -15,9 +15,7 @@
         <constructor-arg value=""/>
     </bean>
 
-    <bean id="dynamicJspContent" class="com.jsp_handler.DynamicJspContent"/>
-    <bean id="newsSession" class="com.news_session.NewsSession"/>
-    <bean id="downloadNewsFeedFile" class="com.get_news_feed_file.DownloadNewsFeedFile"/>
-
-
+    <bean id="dynamicJspContent" class="com.jsp_handler.DynamicJspContent" scope="prototype"/>
+    <bean id="newsSession" class="com.news_session.NewsSession" scope="prototype"/>
+    <bean id="downloadNewsFeedFile" class="com.get_news_feed_file.DownloadNewsFeedFile" scope="prototype"/>
 </beans>
