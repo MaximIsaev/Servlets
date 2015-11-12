@@ -30,7 +30,7 @@ public class XMLParser {
     }
 
 
-    public void parse() {
+    public void parseToJson() {
 
         DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile();
         try {

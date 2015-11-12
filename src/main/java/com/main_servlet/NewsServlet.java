@@ -20,10 +20,15 @@ public class NewsServlet extends HttpServlet {
 
         resp.setContentType("text/html; charset=utf-8");
 
-        xmlParser.parse();
+
 
         PrintWriter out = resp.getWriter();
         xmlParser.getJsonContainer().displayContent(out);
+    }
+
+    @Override
+    public void init(){
+        xmlParser.parseToJson();
     }
 
 
