@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 
 import java.io.PrintWriter;
 
-public class JSONContainer {
+public class JSONStorage {
 
     private JSONArray jsonNewsList = new JSONArray();
 

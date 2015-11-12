@@ -1,7 +1,9 @@
 package com.main_servlet;
 
-import com.xml_parser.XMLParser;
+import com.json_news_item.JSONStorage;
+import com.xml_parser.XMLParserToJson;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,24 +15,24 @@ import java.io.PrintWriter;
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
-    XMLParser xmlParser = new XMLParser();
+    JSONStorage jsonStorage;
+    XMLParserToJson xmlParserToJson = new XMLParserToJson();
+
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         resp.setContentType("text/html; charset=utf-8");
 
-
-
         PrintWriter out = resp.getWriter();
-        xmlParser.getJsonContainer().displayContent(out);
+        jsonStorage.displayContent(out);
     }
 
     @Override
-    public void init(){
-        xmlParser.parseToJson();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+       jsonStorage =  xmlParserToJson.parseToJson();
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

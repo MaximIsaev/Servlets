@@ -1,22 +1,22 @@
 package com.news_config;
 
 
-import com.json_news_item.JSONContainer;
+import com.json_news_item.JSONStorage;
 import com.news_filters.FilteringByAuthor;
-import com.xml_parser.XMLParser;
+import com.xml_parser.XMLParserToJson;
 
 public class NewsConfig {
 
-    private JSONContainer jsonContainer;
-    private XMLParser xmlParser;
+    private JSONStorage jsonStorage;
+    private XMLParserToJson xmlParserToJson;
     private FilteringByAuthor filteringByAuthor;
 
-    public void setJsonContainer(JSONContainer jsonContainer) {
-        this.jsonContainer = jsonContainer;
+    public void setJsonStorage(JSONStorage jsonStorage) {
+        this.jsonStorage = jsonStorage;
     }
 
-    public void setXmlParser(XMLParser xmlParser) {
-        this.xmlParser = xmlParser;
+    public void setXmlParserToJson(XMLParserToJson xmlParserToJson) {
+        this.xmlParserToJson = xmlParserToJson;
     }
 
     public void setFilteringByAuthor(FilteringByAuthor filteringByAuthor) {
@@ -24,12 +24,12 @@ public class NewsConfig {
     }
 
 
-    public JSONContainer getJsonContainer() {
-        return jsonContainer;
+    public JSONStorage getJsonStorage() {
+        return jsonStorage;
     }
 
-    public XMLParser getXmlParser() {
-        return xmlParser;
+    public XMLParserToJson getXmlParserToJson() {
+        return xmlParserToJson;
     }
 
     public FilteringByAuthor getFilteringByAuthor() {

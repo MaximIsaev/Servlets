@@ -10,15 +10,22 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Enumeration;
 import javax.servlet.jsp.*;
 
-public class JspLogic {
+public class JspView {
 
     static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\";
     private static final String welcomeTitle = "Welcome! The server time is now";
     static final String serverTimeTitle = "Server time: ";
+
+    private int countImagesFolderContent;
+
     Enumeration fields;
     String fullPath;
     File rootImgFolder = new File(System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\");
     private String existExpression;
+
+    public int getCountImagesFolderContent() {
+        return countImagesFolderContent;
+    }
 
     public void serverTime(JspWriter out) throws IOException {
 
@@ -46,7 +53,7 @@ public class JspLogic {
 
     }
 
-    public void checkFolder(HttpServletRequest request, JspWriter out) throws IOException {
+    public void checkFolder(HttpServletRequest request) throws IOException {
         while (fields.hasMoreElements()) {
             String field = (String) fields.nextElement();
             checkSubmitField(field, request);
@@ -57,16 +64,15 @@ public class JspLogic {
         return existExpression;
     }
 
-
     public String getImgFolderHomePath() {
         return IMG_FOLDER_HOME_PATH;
     }
 
-    public String getWelcomeTitle(){
-        return  welcomeTitle;
+    public String getWelcomeTitle() {
+        return welcomeTitle;
     }
 
-    public String getServerTimeTitle(){
+    public String getServerTimeTitle() {
         return serverTimeTitle;
     }
 
@@ -84,16 +90,20 @@ public class JspLogic {
         if (foldersNames.length == 0) {
             out.println("Folder \"img\" is empty");
         } else {
+            countImagesFolderContent = foldersNames.length;
             for (int i = 0; i < foldersNames.length; i++) {
                 filePath = folderExport[i].toPath();
                 attr = Files.readAttributes(filePath, BasicFileAttributes.class);
-                out.println("<li>" + folderExport[i].getName());
+//                out.println("<li>" + folderExport[i].getName());
                 if (attr.creationTime() != null) {
                     out.println("(Create date: " + attr.creationTime() + ")</li><br>");
                 }
-
             }
         }
+    }
+
+    public void getImgFolderContent(JspWriter out,String name)throws IOException{
+        out.println(name);
     }
 
     public void checkSubmitField(String field, HttpServletRequest request) {
@@ -109,9 +119,9 @@ public class JspLogic {
     public void checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
 
         if (folder.exists() && folder.isDirectory()) {
-            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!<br>";
+            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!";
         } else {
-            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!<br>";
+            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!";
         }
 
     }

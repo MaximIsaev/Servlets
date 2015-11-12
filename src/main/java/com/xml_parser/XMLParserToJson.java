@@ -1,8 +1,7 @@
 package com.xml_parser;
 
 import com.get_news_feed_file.DownloadNewsFeedFile;
-import com.json_news_item.JSONContainer;
-
+import com.json_news_item.JSONStorage;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class XMLParser {
+public class XMLParserToJson {
 
     final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
     final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
@@ -23,68 +22,59 @@ public class XMLParser {
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);
     File folder = new File(IMG_FOLDER_HOME_PATH);
-    JSONContainer jsonContainer = new JSONContainer();
-
-    public JSONContainer getJsonContainer() {
-        return jsonContainer;
-    }
 
 
-    public void parseToJson() {
+    public JSONStorage parseToJson() {
 
+        JSONStorage jsonStorage = new JSONStorage();
         DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile();
         try {
 
-            DocumentBuilder xml = DocumentBuilderFactory.
-                    newInstance().newDocumentBuilder();
-
+            DocumentBuilder xml = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
             Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
 
-
             Element rootElement = doc.getDocumentElement();
-            NodeList lst = rootElement.getChildNodes();
+            NodeList rootElementChildNodes = rootElement.getChildNodes();
 
-
-            for (int i = 0; i < lst.getLength(); i++) {
-                NodeList channelNodes = lst.item(i).getChildNodes();
+            for (int i = 0; i < rootElementChildNodes.getLength(); i++) {
+                NodeList channelNodes = rootElementChildNodes.item(i).getChildNodes();
                 int itemCount = xmlItemCounter(channelNodes);
-                getItemsChildNodes(channelNodes, itemCount);
-
+                getItemsChildNodes(channelNodes, itemCount, jsonStorage);
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return jsonStorage;
     }
 
-    public void getItemsChildNodes(NodeList channelNodes, int itemCount) throws IOException {
+    private void getItemsChildNodes(NodeList channelNodes, int itemCount, JSONStorage jsonStorage) throws IOException {
 
-        NodeList itemList;
+        NodeList itemNodeList;
         for (int j = channelNodes.getLength() - itemCount; j < channelNodes.getLength(); j++) {
-            itemList = channelNodes.item(j).getChildNodes();
-            displayItemChild(itemList);
+            itemNodeList = channelNodes.item(j).getChildNodes();
+            convertItemChildesToJson(itemNodeList, jsonStorage);
         }
     }
 
-    public void displayItemChild(NodeList list) throws IOException {
+    private void convertItemChildesToJson(NodeList itemNodeList, JSONStorage jsonStorage) throws IOException { //rename;public;parameters;
 
         JSONObject jsonObject = new JSONObject();
         bufferObject = jsonObject;
 
-        for (int i = 0; i < list.getLength(); i++) {
-            if (list.item(i).getNodeName().equals("description")) {
-                imgURLSelection(list.item(i));
+        for (int i = 0; i < itemNodeList.getLength(); i++) {
+            if (itemNodeList.item(i).getNodeName().equals("description")) {
+                imgURLSelection(itemNodeList.item(i));
             } else {
-                jsonObject.put("" + list.item(i).getNodeName() + "", list.item(i).getTextContent());
+                jsonObject.put(itemNodeList.item(i).getNodeName(), itemNodeList.item(i).getTextContent());
             }
         }
-        jsonContainer.addNewJsonRecord(jsonObject);
+        jsonStorage.addNewJsonRecord(jsonObject);
     }
 
 
-    public int xmlItemCounter(NodeList list) {
+    private int xmlItemCounter(NodeList list) {
 
         int counterItem = 0;
         for (int i = 0; i < list.getLength(); i++) {
@@ -95,18 +85,14 @@ public class XMLParser {
         return counterItem;
     }
 
-    public void imgURLSelection(Node descriptionNode) throws IOException {
+    private void imgURLSelection(Node descriptionNode) throws IOException {
 
         NodeList descriptionNodeChildNodes = descriptionNode.getChildNodes();
-
         getDescriptionContent(descriptionNodeChildNodes);
-
         bufferObject.put("" + descriptionNode.getNodeName() + "", descriptionNode.getTextContent());
-
-
     }
 
-    public void getDescriptionContent(NodeList descriptionNodeChildNodes) throws IOException {
+    private void getDescriptionContent(NodeList descriptionNodeChildNodes) throws IOException {
 
         for (int i = 0; i < descriptionNodeChildNodes.getLength(); i++) {
             String imgString = descriptionNodeChildNodes.item(i).getNodeValue();
@@ -115,7 +101,7 @@ public class XMLParser {
         }
     }
 
-    public void getCharsFromSRCString(String[] imgStringArray) throws IOException {
+    private void getCharsFromSRCString(String[] imgStringArray) throws IOException {
 
         char[] subStringImg;
         for (int j = 0; j < imgStringArray.length; j++) {
@@ -126,7 +112,7 @@ public class XMLParser {
         }
     }
 
-    public void concatCharIntoImgURL(char[] subStringImg) throws IOException {
+    private void concatCharIntoImgURL(char[] subStringImg) throws IOException {
 
         String ImgLink = "";
         for (int k = 5; k < subStringImg.length - 1; k++) {
@@ -136,7 +122,7 @@ public class XMLParser {
         write(allImgLinks);
     }
 
-    public void write(String text) throws IOException {
+    private void write(String text) throws IOException {
 
         if (!folder.exists()) {
             folder.mkdirs();
@@ -144,7 +130,7 @@ public class XMLParser {
         createImgFile(text);
     }
 
-    public void createImgFile(String text) throws IOException {
+    private void createImgFile(String text) throws IOException {
 
         if (!imgLinksFile.exists()) {
             imgLinksFile.createNewFile();

@@ -1,7 +1,7 @@
 package com.news_filters;
 
 
-import com.json_news_item.JSONContainer;
+import com.json_news_item.JSONStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -31,7 +31,7 @@ public class FilteringByAuthor {
     public void displayThroughFilter(JSONObject jsonObject, PrintWriter writer) {
 
         if (jsonObject.get("author").equals(authorName) || authorName.equals("")) {
-            writer.write(JSONContainer.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
+            writer.write(JSONStorage.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
         }
     }
 }

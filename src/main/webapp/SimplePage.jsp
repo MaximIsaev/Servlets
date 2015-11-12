@@ -1,4 +1,4 @@
-<%@ page import="com.jsp_handler.JspLogic" %>
+<%@ page import="com.jsp_handler.JspView" %>
 <%@ page import="com.news_session.NewsSession" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
@@ -9,18 +9,18 @@
 <body>
 
 <%
-    JspLogic jspLogic = new JspLogic();
+    JspView jspView = new JspView();
     NewsSession newsSession = new NewsSession();
     newsSession.checkSession(request);
     if (newsSession.getSessionFlag()) {
 %>
 
-<h1><%=jspLogic.getWelcomeTitle()%>
+<h1><%=jspView.getWelcomeTitle()%>
     <%
         } else {
-            out.println(jspLogic.getServerTimeTitle());
+            out.println(jspView.getServerTimeTitle());
         }
-        jspLogic.serverTime(out);
+        jspView.serverTime(out);
     %>
     <br>
 
@@ -28,7 +28,7 @@
 <br>
 
 <%
-    if (!jspLogic.getParameters(request)) { // Нет полей
+    if (!jspView.getParameters(request)) { // Нет полей
 %>
 
 <form method="POST" action="SimplePage.jsp">
@@ -42,17 +42,23 @@
 
 <%
 } else {
-    jspLogic.checkFolder(request, out);
+    jspView.checkFolder(request);
 %>
-<%=jspLogic.getExistExpression()%>
+<br>
+<%=jspView.getExistExpression()%>
 
 <br>
 
-<p1><b>Content of folder:<%="\"" + jspLogic.getImgFolderHomePath() + "\""%>:</b><br><br>
+<p1><b>Content of folder:<%="\"" + jspView.getImgFolderHomePath() + "\""%>:</b><br><br>
 </p1>
 
 <%
-    jspLogic.displayImgFolderContent(out);
+    jspView.displayImgFolderContent(out);
+    for (int i = 0; i < jspView.getCountImagesFolderContent(); i++) {
+%>
+<li></li>
+<%
+    }
 %>
 <br>
 <%
@@ -60,3 +66,22 @@
 %>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
