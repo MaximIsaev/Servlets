@@ -1,4 +1,4 @@
-package buisness_logic.news_session;
+package business_logic.news_session;
 
 
 import javax.servlet.http.HttpServletRequest;

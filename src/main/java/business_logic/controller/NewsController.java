@@ -1,7 +1,7 @@
-package buisness_logic.controller;
+package business_logic.controller;
 
 
-import buisness_logic.xml_parser.XMLParser;
+import configuration_interface.DisplayConfig;
 import org.json.simple.JSONArray;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,19 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class NewsController {
 
-    XMLParser xmlParser;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
     public
     @ResponseBody
     JSONArray getJsonNews() {
-
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-        xmlParser = (XMLParser) context.getBean("xmlParser");
-
-        xmlParser.parse();
-
-        return xmlParser.getJsonStorage().getJsonNewsStorage();
+        DisplayConfig displayConfig = (DisplayConfig) context.getBean("displayConfig");
+        return displayConfig.getNews();
     }
 
     @RequestMapping(value = "/*.jsp", method = RequestMethod.GET)

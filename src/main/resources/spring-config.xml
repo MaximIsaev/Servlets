@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:annotation-config/>
-    <context:component-scan base-package="com"/>
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-    <bean id="loggerListener" class="buisness_logic.logging.LoggerListener"/>
-    <bean id="consoleEventLogger" class="buisness_logic.logging.ConsoleEventLogger"/>
+    <context:component-scan base-package="business_logic"/>
+    <context:component-scan base-package="configuration_interface"/>
 
-    <bean id="xmlParser" class="buisness_logic.xml_parser.XMLParser" scope="prototype"/>
-    <bean id="jsonStorage" class="buisness_logic.json_storage.JSONStorage" scope="prototype"/>
-    <bean id="filterByAuthor" class="buisness_logic.news_filters.FilteringByAuthor">
-        <constructor-arg value=""/>
-    </bean>
-
-    <bean id="dynamicJspContent" class="buisness_logic.jsp_handler.DynamicJspContent" scope="prototype"/>
-    <bean id="newsSession" class="buisness_logic.news_session.NewsSession" scope="prototype"/>
-    <bean id="downloadNewsFeedFile" class="buisness_logic.get_news_feed_file.DownloadNewsFeedFile" scope="prototype"/>
+    <mvc:annotation-driven/>
 
     <bean id="displayConfig" class="configuration_interface.DisplayConfig" scope="prototype"/>
-    <bean id="sourceConfig" class="configuration_interface.SourceConfig" scope="prototype">
-        <constructor-arg value="NewsFeed.xml"/>
+    <bean id="sourceConfig" class="configuration_interface.SourceConfig" scope="prototype"/>
+
+    <bean id="loggerListener" class="business_logic.logging.LoggerListener"/>
+    <bean id="consoleEventLogger" class="business_logic.logging.ConsoleEventLogger"/>
+
+    <bean id="xmlParser" class="business_logic.xml_parser.XMLParser" scope="prototype">
+        <constructor-arg ref="sourceConfig"/>
+    </bean>
+    <bean id="jsonStorage" class="business_logic.json_storage.JSONStorage" scope="prototype"/>
+    <bean id="filterByAuthor" class="business_logic.news_filters.FilteringByAuthor">
+        <constructor-arg value="admin"/>
+    </bean>
+
+    <bean id="dynamicJspContent" class="business_logic.jsp_handler.DynamicJspContent" scope="prototype"/>
+    <bean id="newsSession" class="business_logic.news_session.NewsSession" scope="prototype"/>
+    <bean id="downloadNewsFeedFile" class="business_logic.get_news_feed_file.DownloadNewsFeedFile" scope="prototype">
+        <constructor-arg ref="sourceConfig"/>
     </bean>
 
 </beans>

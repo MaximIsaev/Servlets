@@ -1,4 +1,4 @@
-package buisness_logic.news_config;
+package business_logic.news_config;
 
 
 import java.util.ArrayList;

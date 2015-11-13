@@ -1,7 +1,7 @@
-package buisness_logic.xml_parser;
+package business_logic.xml_parser;
 
-import buisness_logic.get_news_feed_file.DownloadNewsFeedFile;
-import buisness_logic.json_storage.JSONStorage;
+import business_logic.json_storage.JSONStorage;
+import configuration_interface.SourceConfig;
 import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,14 +20,22 @@ public class XMLParser {
 
     ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
 
-    final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
-    final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
+    private String imgFolderHomePath;
+    private String imgFileHomePath;
+    private String outputFeedFilePath;
+    private File outputFeedFile = new File(outputFeedFilePath);
 
+    File imgLinksFile = new File(imgFileHomePath);
+    File folder = new File(imgFolderHomePath);
     JSONObject bufferObject;
     String allImgLinks = "";
-    File imgLinksFile = new File(IMG_FILE_HOME_PATH);
-    File folder = new File(IMG_FOLDER_HOME_PATH);
     JSONStorage jsonStorage = (JSONStorage) context.getBean("jsonStorage");
+
+    public XMLParser(SourceConfig sourceConfig) {
+        this.imgFolderHomePath = sourceConfig.getImgFolderHomePath();
+        this.imgFileHomePath = sourceConfig.getImgFileHomePath();
+        this.outputFeedFilePath = sourceConfig.getOutputFeedFilePath();
+    }
 
     public JSONStorage getJsonStorage() {
         return jsonStorage;
@@ -36,14 +44,10 @@ public class XMLParser {
 
     public void parse() {
 
-        DownloadNewsFeedFile downloadNewsFeedFile = (DownloadNewsFeedFile) context.getBean("downloadNewsFeedFile");
         try {
+            DocumentBuilder xml = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
-            DocumentBuilder xml = DocumentBuilderFactory.
-                    newInstance().newDocumentBuilder();
-
-            Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
-
+            Document doc = xml.parse(outputFeedFile);
 
             Element rootElement = doc.getDocumentElement();
             NodeList lst = rootElement.getChildNodes();
@@ -80,7 +84,7 @@ public class XMLParser {
             if (list.item(i).getNodeName().equals("description")) {
                 imgURLSelection(list.item(i));
             } else {
-                jsonObject.put("" + list.item(i).getNodeName() + "", list.item(i).getTextContent());
+                jsonObject.put(list.item(i).getNodeName(), list.item(i).getTextContent());
             }
         }
         jsonStorage.addNewJsonRecord(jsonObject);

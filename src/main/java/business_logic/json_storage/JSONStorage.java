@@ -1,4 +1,4 @@
-package buisness_logic.json_storage;
+package business_logic.json_storage;
 
 
 import org.json.simple.JSONArray;
@@ -14,7 +14,7 @@ public class JSONStorage {
         jsonNewsStorage.add(rec);
     }
 
-    public JSONArray getJsonNewsStorage() {
+    public JSONArray getNews() {
         return jsonNewsStorage;
     }
 

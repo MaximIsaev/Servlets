@@ -1,4 +1,4 @@
-package buisness_logic.logging;
+package business_logic.logging;
 
 
 import org.springframework.context.ApplicationContext;

@@ -1,5 +1,5 @@
-<%@ page import="buisness_logic.jsp_handler.DynamicJspContent" %>
-<%@ page import="buisness_logic.news_session.NewsSession" %>
+<%@ page import="business_logic.jsp_handler.DynamicJspContent" %>
+<%@ page import="business_logic.news_session.NewsSession" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.context.support.ClassPathXmlApplicationContext" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
