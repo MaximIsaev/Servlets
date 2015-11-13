@@ -12,23 +12,22 @@ public class NewsSession {
 
     public void checkSession(HttpServletRequest request) {
 
-
         HttpSession httpSession = request.getSession(true);
 
         Integer ival = (Integer) httpSession.getAttribute(SESSION_ID_KEY);
         if (ival == null) {
-            setSessionAttribute(httpSession, 1);
+            setSessionAttribute(httpSession, 1, true);
         } else {
-            setSessionAttribute(httpSession, ival.intValue() + 1);
+            setSessionAttribute(httpSession, ival + 1, false);
         }
     }
 
-    public void setSessionAttribute(HttpSession httpSession, int value) {
+    public void setSessionAttribute(HttpSession httpSession, int value, boolean flagValue) {
 
-        Integer ival = new Integer(value);
+        Integer ival = value;
         httpSession.setAttribute(SESSION_ID_KEY, ival);
         userCount++;
-        sessionFlag = true;
+        sessionFlag = flagValue;
 
     }
 

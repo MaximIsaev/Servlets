@@ -3,10 +3,10 @@ package com.news_filters;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -32,38 +32,34 @@ public class NewsFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        ServletResponse newResponse = response;
+        ServletResponse newResponse;
 
-        if (request instanceof HttpServletRequest) {
-            newResponse = new CharResponseWrapper((HttpServletResponse) response);
-        }
+        newResponse = new CharResponseWrapper((HttpServletResponse) response);
 
         chain.doFilter(request, newResponse);
 
-        if (newResponse instanceof CharResponseWrapper) {
-            String text = newResponse.toString();
-            checkText(text, response);
+        String text = newResponse.toString();
+        try {
+            checkText(response, text);
+        } catch (ParseException e) {
+            log.info("Execute ParseException in NewsFilter.java");
+            e.printStackTrace();
         }
     }
 
-    public void checkText(String text, ServletResponse response) throws IOException {
+    private void checkText(ServletResponse response, String text) throws IOException, ParseException {
         if (text != null) {
-            filteringJsonArray(text, response);
+            filteringJsonArray(response, text);
         } else {
             response.getWriter().write("No text in response!");
         }
     }
 
-    public void filteringJsonArray(String text, ServletResponse response) {
-
-        try {
-            Object object = parser.parse(text);
-            jsonArray = (JSONArray) object;
-            filteringByAuthor.filter(jsonArray, response.getWriter());
-        } catch (Exception e) {
-            log.info("Execute ParseException or IOException in NewsFilter.java");
-            e.printStackTrace();
-        }
+    private void filteringJsonArray(ServletResponse response, String text) throws IOException, ParseException {
+        
+        Object object = parser.parse(text);
+        jsonArray = (JSONArray) object;
+        filteringByAuthor.filter(jsonArray, response.getWriter());
 
     }
 }

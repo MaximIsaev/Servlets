@@ -36,13 +36,13 @@
 
     Folder name: <input type="text" size="20" name="Folder_name">
 
-    <INPUT TYPE=submit name=submit value="Check folder">
+    <INPUT TYPE=submit value="Check folder">
 </form>
 
 
 <%
 } else {
-    jspView.checkFolder(request);
+    jspView.checkFields(request);
 %>
 <br>
 <%=jspView.getExistExpression()%>
@@ -53,10 +53,11 @@
 </p1>
 
 <%
-    jspView.displayImgFolderContent(out);
+    jspView.getImgFolderContent(out);
     for (int i = 0; i < jspView.getCountImagesFolderContent(); i++) {
 %>
-<li></li>
+<li><%=jspView.getFilesNamesInImgFolder().get(i)%>
+</li>
 <%
     }
 %>

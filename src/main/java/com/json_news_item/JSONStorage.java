@@ -19,7 +19,7 @@ public class JSONStorage {
     }
 
     public void displayContent(PrintWriter out) {
-        out.print(jsonNewsList.toJSONString());
+        out.print(jsonNewsList.toString());
     }
 
     //Using for easy viewing

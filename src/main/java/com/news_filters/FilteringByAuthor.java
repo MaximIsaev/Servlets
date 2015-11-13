@@ -1,13 +1,11 @@
 package com.news_filters;
 
 
-import com.json_news_item.JSONStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 public class FilteringByAuthor {
 
@@ -28,10 +26,10 @@ public class FilteringByAuthor {
         }
     }
 
-    public void displayThroughFilter(JSONObject jsonObject, PrintWriter writer) {
+    private void displayThroughFilter(JSONObject jsonObject, PrintWriter writer) {
 
         if (jsonObject.get("author").equals(authorName) || authorName.equals("")) {
-            writer.write(JSONStorage.encodeHtmlTag(jsonObject.toString()) + "<br><br>");
+            writer.write(jsonObject.toString());
         }
     }
 }

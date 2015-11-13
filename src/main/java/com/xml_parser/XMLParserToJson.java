@@ -16,8 +16,8 @@ import java.io.PrintWriter;
 
 public class XMLParserToJson {
 
-    final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images";
-    final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\imgLinks.txt";
+    final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + File.separator + "webapps" + File.separator + "NewsData" + File.separator + "images";
+    final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + File.separator + "webapps" + File.separator + "NewsData" + File.separator + "images" + File.separator + "imgLinks.txt";
     JSONObject bufferObject;
     String allImgLinks = "";
     File imgLinksFile = new File(IMG_FILE_HOME_PATH);
