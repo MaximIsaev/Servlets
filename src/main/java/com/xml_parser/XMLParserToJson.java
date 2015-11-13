@@ -1,7 +1,7 @@
 package com.xml_parser;
 
-import com.get_news_feed_file.DownloadNewsFeedFile;
 import com.json_news_item.JSONStorage;
+import configuration.sources.SourceConfig;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,23 +16,31 @@ import java.io.PrintWriter;
 
 public class XMLParserToJson {
 
-    final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + File.separator + "webapps" + File.separator + "NewsData" + File.separator + "images";
-    final String IMG_FILE_HOME_PATH = System.getenv("CATALINA_HOME") + File.separator + "webapps" + File.separator + "NewsData" + File.separator + "images" + File.separator + "imgLinks.txt";
     JSONObject bufferObject;
     String allImgLinks = "";
-    File imgLinksFile = new File(IMG_FILE_HOME_PATH);
-    File folder = new File(IMG_FOLDER_HOME_PATH);
+    File imgLinksFile;
+    File folder;
+    File outputFeedFile;
+    SourceConfig sourceConfig;
+
+    public XMLParserToJson(SourceConfig sourceConfig,File outputFeedFile) {
+        this.sourceConfig = sourceConfig;
+        imgLinksFile = new File(sourceConfig.getImgFileHomePath());
+        folder = new File(sourceConfig.getImgFolderHomePath());
+        this.outputFeedFile = outputFeedFile;
+    }
 
 
-    public JSONStorage parseToJson() {
+    public JSONStorage parseToJson(String xmlNewsDownloadedFilePath) {
 
         JSONStorage jsonStorage = new JSONStorage();
-        DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile();
+//        DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile(sourceConfig);
+//        downloadNewsFeedFile.download();
         try {
 
             DocumentBuilder xml = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
-            Document doc = xml.parse(downloadNewsFeedFile.getOutputFeedFile());
+            Document doc = xml.parse(outputFeedFile);
 
             Element rootElement = doc.getDocumentElement();
             NodeList rootElementChildNodes = rootElement.getChildNodes();
@@ -135,11 +143,8 @@ public class XMLParserToJson {
         if (!imgLinksFile.exists()) {
             imgLinksFile.createNewFile();
         }
-        PrintWriter out = new PrintWriter(imgLinksFile.getAbsoluteFile());
-        try {
+        try (PrintWriter out = new PrintWriter(imgLinksFile.getAbsoluteFile())) {
             out.print(text + "\n");
-        } finally {
-            out.close();
         }
     }
 }

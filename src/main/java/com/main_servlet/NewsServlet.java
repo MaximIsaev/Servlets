@@ -1,7 +1,8 @@
 package com.main_servlet;
 
 import com.json_news_item.JSONStorage;
-import com.xml_parser.XMLParserToJson;
+import configuration.DisplayInterface;
+import configuration.sources.SourceConfig;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,8 +17,8 @@ import java.io.PrintWriter;
 public class NewsServlet extends HttpServlet {
 
     JSONStorage jsonStorage;
-    XMLParserToJson xmlParserToJson = new XMLParserToJson();
 
+    DisplayInterface displayInterface = new DisplayInterface();
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -31,7 +32,7 @@ public class NewsServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-       jsonStorage =  xmlParserToJson.parseToJson();
+        jsonStorage = displayInterface.getNews();
     }
 
     @Override
