@@ -8,18 +8,28 @@ import java.io.PrintWriter;
 
 public class JSONStorage {
 
-    private JSONArray jsonNewsList = new JSONArray();
+    private JSONArray jsonNewsStorageList = new JSONArray();
 
     public void addNewJsonRecord(JSONObject rec) {
-        jsonNewsList.add(rec);
+        jsonNewsStorageList.add(rec);
     }
 
-    public JSONArray getJsonNewsList() {
-        return jsonNewsList;
+    public void displayContent(PrintWriter out, int newsCountForDisplay) {
+
+
+        if (newsCountForDisplay == 0) {
+            out.print(jsonNewsStorageList.toString());
+        } else {
+            newsPicks(out, newsCountForDisplay);
+        }
     }
 
-    public void displayContent(PrintWriter out) {
-        out.print(jsonNewsList.toString());
+    private void newsPicks(PrintWriter out, int newsCountForDisplay) {
+        JSONArray storageForDisplay = new JSONArray();
+        for (int i = 0; i < newsCountForDisplay; i++) {
+            storageForDisplay.add(jsonNewsStorageList.get(i));
+        }
+        out.print(storageForDisplay.toString());
     }
 
     //Using for easy viewing

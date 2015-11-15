@@ -22,7 +22,6 @@ public class FilteringByAuthor {
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
             displayThroughFilter(jsonObject, writer);
-
         }
     }
 

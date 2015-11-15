@@ -6,23 +6,16 @@ import com.json_news_item.JSONStorage;
 import com.xml_parser.XMLParserToJson;
 import configuration.sources.SourceConfig;
 
-public class DisplayInterface {
-
-
-    private int newsDisplayCounter = 5;
+public class NewsProcessing {
 
     SourceConfig sourceConfig = new SourceConfig();
     DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile(sourceConfig);
-    XMLParserToJson xmlParserToJson = new XMLParserToJson(sourceConfig,downloadNewsFeedFile.getOutputFeedFile());
-
+    XMLParserToJson xmlParserToJson = new XMLParserToJson(sourceConfig);
 
     public JSONStorage getNews() {
-        String downloadedNewsFilePath =  downloadNewsFeedFile.download();
+        String downloadedNewsFilePath = downloadNewsFeedFile.download();
         return xmlParserToJson.parseToJson(downloadedNewsFilePath);
     }
 
-    public int getNewsDisplayCounter() {
-        return newsDisplayCounter;
-    }
 
 }

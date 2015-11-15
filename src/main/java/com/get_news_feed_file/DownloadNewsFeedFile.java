@@ -20,9 +20,9 @@ public class DownloadNewsFeedFile {
 
     public DownloadNewsFeedFile(SourceConfig sourceConfig) {
         this.newsFeedsUrl = sourceConfig.getNewsFeedFileXmlUrlPath();
-        this.outputFeedFilePath = sourceConfig.getOutputFeedFilePath();
-        outputFeedFolder = new File(sourceConfig.getOutputFeedFolderPath());
-        outputFeedFile = new File(sourceConfig.getOutputFeedFilePath());
+        this.outputFeedFilePath = sourceConfig.getOutputNewsFeedFilePath();
+        outputFeedFolder = new File(sourceConfig.getOutputNewsFeedFolderPath());
+        outputFeedFile = new File(sourceConfig.getOutputNewsFeedFilePath());
     }
 
     public String download() {
@@ -35,18 +35,6 @@ public class DownloadNewsFeedFile {
             System.out.println(e);
         }
         return outputFeedFilePath;
-    }
-
-    public String getNewsFeedsUrl() {
-        return newsFeedsUrl;
-    }
-
-    public String getOutputFeedFilePath() {
-        return outputFeedFilePath;
-    }
-
-    public File getOutputFeedFile() {
-        return outputFeedFile;
     }
 
     public void validateOutputFeedFile() throws IOException {
@@ -68,7 +56,6 @@ public class DownloadNewsFeedFile {
             throw new RuntimeException(e);
         }
     }
-
 
     public void createOutputFeedFile() throws IOException {
 

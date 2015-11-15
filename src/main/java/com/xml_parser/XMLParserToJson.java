@@ -20,27 +20,23 @@ public class XMLParserToJson {
     String allImgLinks = "";
     File imgLinksFile;
     File folder;
-    File outputFeedFile;
     SourceConfig sourceConfig;
 
-    public XMLParserToJson(SourceConfig sourceConfig,File outputFeedFile) {
+    public XMLParserToJson(SourceConfig sourceConfig) {
         this.sourceConfig = sourceConfig;
         imgLinksFile = new File(sourceConfig.getImgFileHomePath());
         folder = new File(sourceConfig.getImgFolderHomePath());
-        this.outputFeedFile = outputFeedFile;
     }
 
 
     public JSONStorage parseToJson(String xmlNewsDownloadedFilePath) {
 
         JSONStorage jsonStorage = new JSONStorage();
-//        DownloadNewsFeedFile downloadNewsFeedFile = new DownloadNewsFeedFile(sourceConfig);
-//        downloadNewsFeedFile.download();
         try {
 
             DocumentBuilder xml = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
-            Document doc = xml.parse(outputFeedFile);
+            Document doc = xml.parse(xmlNewsDownloadedFilePath);
 
             Element rootElement = doc.getDocumentElement();
             NodeList rootElementChildNodes = rootElement.getChildNodes();

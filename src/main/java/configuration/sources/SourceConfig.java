@@ -6,8 +6,8 @@ import java.io.File;
 public class SourceConfig {
 
     private String newsResourceFolderName = "NewsData";
-    private String newsFeedFolderName = "NewsStorage";
-    private String newsFeedFileName = "NewsFeed";
+    private String newsXmlFileFolderName = "NewsStorage";
+    private String newsXmlFileName = "NewsFeed";
     private String imgLinksFolderName = "Images";
     private String imgLinksFileName = "imgLinks";
 
@@ -15,62 +15,27 @@ public class SourceConfig {
 
     private String newsSourceFilePath = System.getenv("CATALINA_HOME") + File.separator + "webapps" + File.separator + newsResourceFolderName + File.separator;
 
-    private String outputFeedFolderPath = newsSourceFilePath + newsFeedFolderName + File.separator;
-    private String outputFeedFilePath = outputFeedFolderPath + newsFeedFileName + ".xml";
+    private String outputNewsFeedFolderPath = newsSourceFilePath + newsXmlFileFolderName + File.separator;
+    private String outputNewsFeedFilePath = outputNewsFeedFolderPath + newsXmlFileName + ".xml";
 
     private String imgFolderHomePath = newsSourceFilePath + imgLinksFolderName + File.separator;
     private String imgFileHomePath = imgFolderHomePath + imgLinksFileName + ".txt";
 
-    public String getNewsSourceFilePath() {
-        return newsSourceFilePath;
-    }
 
-    public void setNewsSourceFilePath(String newsSourceFilePath) {
-        this.newsSourceFilePath = newsSourceFilePath;
-    }
-
-    public String getOutputFeedFolderPath() {
-        return outputFeedFolderPath;
-    }
-
-    public void setOutputFeedFolderPath(String outputFeedFolderPath) {
-        this.outputFeedFolderPath = outputFeedFolderPath;
+    public String getOutputNewsFeedFolderPath() {
+        return outputNewsFeedFolderPath;
     }
 
     public String getImgFolderHomePath() {
         return imgFolderHomePath;
     }
 
-    public void setImgFolderHomePath(String imgFolderHomePath) {
-        this.imgFolderHomePath = imgFolderHomePath;
-    }
-
     public String getImgFileHomePath() {
         return imgFileHomePath;
     }
 
-    public void setImgFileHomePath(String imgFileHomePath) {
-        this.imgFileHomePath = imgFileHomePath;
-    }
-
-    public String getNewsFeedFileName() {
-        return newsFeedFileName;
-    }
-
-    public void setNewsFeedFileName(String newsFeedFileName) {
-        this.newsFeedFileName = newsFeedFileName;
-    }
-
-    public void setOutputFeedFilePath(String outputFeedFilePath) {
-        this.outputFeedFilePath = outputFeedFilePath;
-    }
-
-    public String getOutputFeedFilePath() {
-        return outputFeedFilePath;
-    }
-
-    public void setNewsFeedFileXmlUrlPath(String newsFeedFileXmlUrlPath) {
-        this.newsFeedFileXmlUrlPath = newsFeedFileXmlUrlPath;
+    public String getOutputNewsFeedFilePath() {
+        return outputNewsFeedFilePath;
     }
 
     public String getNewsFeedFileXmlUrlPath() {

@@ -1,8 +1,7 @@
 package com.main_servlet;
 
 import com.json_news_item.JSONStorage;
-import configuration.DisplayInterface;
-import configuration.sources.SourceConfig;
+import configuration.NewsProcessing;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,22 +16,22 @@ import java.io.PrintWriter;
 public class NewsServlet extends HttpServlet {
 
     JSONStorage jsonStorage;
+    private int numberOfNewsToDisplay = 5;
 
-    DisplayInterface displayInterface = new DisplayInterface();
+    NewsProcessing newsProcessing = new NewsProcessing();
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         resp.setContentType("text/html; charset=utf-8");
-
         PrintWriter out = resp.getWriter();
-        jsonStorage.displayContent(out);
+        jsonStorage.displayContent(out, numberOfNewsToDisplay);
     }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        jsonStorage = displayInterface.getNews();
+        jsonStorage = newsProcessing.getNews();
     }
 
     @Override
