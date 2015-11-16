@@ -1,4 +1,4 @@
-package com.jsp_handler;
+package news_treatment.jsp_handler;
 
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.news_session;
+package news_treatment.news_session;
 
 
 import javax.servlet.http.HttpServletRequest;

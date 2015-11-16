@@ -1,5 +1,5 @@
-<%@ page import="com.jsp_handler.JspView" %>
-<%@ page import="com.news_session.NewsSession" %>
+<%@ page import="news_treatment.jsp_handler.JspView" %>
+<%@ page import="news_treatment.news_session.NewsSession" %>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 
 <html>

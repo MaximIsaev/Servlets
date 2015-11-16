@@ -1,4 +1,4 @@
-package com.news_filters;
+package news_treatment.news_filters;
 
 
 import org.json.simple.JSONArray;

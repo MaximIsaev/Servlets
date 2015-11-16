@@ -1,4 +1,4 @@
-package com.news_item;
+package news_treatment.news_item;
 
 public class News {
 
