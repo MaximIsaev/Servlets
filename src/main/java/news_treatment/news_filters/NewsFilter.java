@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 
-@WebFilter(filterName = "Filter", urlPatterns = "/news")
+//@WebFilter(filterName = "Filter", urlPatterns = "/news")
 public class NewsFilter implements Filter {
 
     FilteringByAuthor filteringByAuthor = new FilteringByAuthor("");

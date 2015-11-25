@@ -2,18 +2,22 @@ package news_treatment.jsp_handler;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import javax.servlet.jsp.*;
 
 public class JspView {
 
     static final String IMG_FOLDER_HOME_PATH = System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\";
-    private static final String welcomeTitle = "Welcome! The server time is now";
-    static final String serverTimeTitle = "Server time: ";
+
+    public void setWelcomeTitle(String welcomeTitle) {
+        this.welcomeTitle = welcomeTitle;
+    }
+
+    private String welcomeTitle = "Welcome! The server time is now";
+    private String serverTimeTitle = "Server time: ";
 
     private int countImagesFolderContent;
 
@@ -23,7 +27,10 @@ public class JspView {
         return filesNamesInImgFolder;
     }
 
-    Enumeration fields;
+    String field;
+    String imgFolderIsEmpty;
+//    List<String> imgFolderContent = new ArrayList<>();
+
     File rootImgFolder = new File(System.getenv("CATALINA_HOME") + "\\webapps\\NewsData\\images\\");
     private String existExpression;
 
@@ -50,16 +57,17 @@ public class JspView {
     }
 
 
-    public boolean getParameters(HttpServletRequest request) {
-        fields = request.getParameterNames();
-        return fields.hasMoreElements();
-    }
+//    public boolean getParameters(HttpServletRequest request) {
+//        fields = request.getParameterNames();
+//        return fields.hasMoreElements();
+//    }
 
-    public void checkFields(HttpServletRequest request) throws IOException {
-        while (fields.hasMoreElements()) {
-            String field = (String) fields.nextElement();
-            checkFolderByFullPath(field, request);
-        }
+    public String checkFields(HttpServletRequest request) throws IOException {
+//        while (fields.hasMoreElements()) {
+        field = request.getParameter("Folder_name");
+//        String field = (String) fields.nextElement();
+        return checkFolderByFullPath(field, request);
+//        }
     }
 
     public String getExistExpression() {
@@ -79,14 +87,14 @@ public class JspView {
     }
 
 
-    public void getImgFolderContent(JspWriter out) throws IOException {
+    public void getImgFolderContent() throws IOException {
         if (!rootImgFolder.exists()) {
             rootImgFolder.mkdir();
         }
         File folderExport[] = rootImgFolder.listFiles();
         String[] foldersNames = new String[folderExport.length];
         if (foldersNames.length == 0) {
-            out.println("Folder \"images\" is empty");
+            imgFolderIsEmpty = "Folder \"images\" is empty";
         } else {
             countImagesFolderContent = foldersNames.length;
             getImgFolderContent(folderExport, foldersNames);
@@ -97,24 +105,24 @@ public class JspView {
         for (int i = 0; i < foldersNames.length; i++) {
             filesNamesInImgFolder.add(folderExport[i].getName());
         }
+//        return filesNamesInImgFolder;
     }
 
 
-    private void checkFolderByFullPath(String field, HttpServletRequest request) {//rename method;
+    private String checkFolderByFullPath(String field, HttpServletRequest request) {
 
-        String folderFullPath = IMG_FOLDER_HOME_PATH + request.getParameter(field);
+        String folderFullPath = IMG_FOLDER_HOME_PATH + field;
         File folder = new File(folderFullPath);
-        checkFolderExist(folder, request, field, folderFullPath);
+        return checkFolderExist(folder, request, field, folderFullPath);
     }
 
-    private void checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
+    private String checkFolderExist(File folder, HttpServletRequest request, String field, String folderFullPath) {
 
-        if (folder.exists() && folder.isDirectory() && folderFullPath.equals("")) {
-            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!";
+        if (folder.exists() && folder.isDirectory()) {
+            return existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is EXIST!";
         } else {
-            existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!";
+            return existExpression = "Folder " + "\"" + request.getParameter(field) + "\"" + " with this path: " + "\"" + folderFullPath + "\"" + " is NOT EXIST!";
         }
-
     }
 
 }

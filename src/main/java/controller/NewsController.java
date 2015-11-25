@@ -2,29 +2,28 @@ package controller;
 
 import configuration.NewsProcessing;
 import org.json.simple.JSONArray;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.xml.sax.SAXException;
+
+import javax.servlet.ServletException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 @Controller
 public class NewsController {
 
-    ApplicationContext context = new ClassPathXmlApplicationContext("");
+
+    @Autowired
+    NewsProcessing newsProcessing;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    JSONArray getJsonNews() {
+    public String getJsonNews(Model model) throws ServletException, IOException, ParserConfigurationException, SAXException {
 
-        NewsProcessing newsProcessing = (NewsProcessing) context.getBean("newsProcessing");
-        return newsProcessing.getNews();
-    }
-
-    @RequestMapping(value = "/*.jsp", method = RequestMethod.GET)
-    public String chooseImgFolderPage() {
-        return "SimplePage";
+        model.addAttribute("news", newsProcessing.getNews());
+        return "jsonTemplate";
     }
 }

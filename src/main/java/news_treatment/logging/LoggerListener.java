@@ -1,6 +1,10 @@
 package news_treatment.logging;
 
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,55 +16,20 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-public class LoggerListener implements HttpSessionListener, ServletContextListener, ServletContextAttributeListener {
+@Aspect
+public class LoggerListener {
 
-    private static int totalActiveSessions;
 
-    ConsoleEventLogger eventLogger;
-    ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+    @Autowired
+    private EventLogger eventLogger;
 
-    public LoggerListener() {
-        eventLogger = (ConsoleEventLogger) context.getBean("consoleEventLogger");
+    @After("execution(* news_treatment.downloading_news_file.DownloadNewsFeedFile.download(..))")
+    public void downloadLogEvent(JoinPoint joinPoint) {
+        eventLogger.logEvent("Download of news file is finished!");
     }
 
-    public static int getTotalActiveSession() {
-        return totalActiveSessions;
-    }
-
-    @Override
-    public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        totalActiveSessions++;
-        eventLogger.logEvent("sessionCreated - add one session into counter");
-    }
-
-    @Override
-    public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        totalActiveSessions--;
-        eventLogger.logEvent("sessionDestroyed - deduct one session from counter");
-    }
-
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        eventLogger.logEvent("ServletContextListener destroyed");
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        eventLogger.logEvent("ServletContextListener started");
-    }
-
-    @Override
-    public void attributeAdded(ServletContextAttributeEvent servletContextAttributeEvent) {
-        eventLogger.logEvent("An attribute was added to the ServletContext object");
-    }
-
-    @Override
-    public void attributeRemoved(ServletContextAttributeEvent servletContextAttributeEvent) {
-        eventLogger.logEvent("An attribute was removed from the ServletContext object");
-    }
-
-    @Override
-    public void attributeReplaced(ServletContextAttributeEvent servletContextAttributeEvent) {
-        eventLogger.logEvent("An attribute was replaced in the ServletContext object");
+    @After("execution(* news_treatment.xml_parser.XMLParserToJson.parseToJson(..))")
+    public void xmlParserLogEvent(JoinPoint joinPoint) {
+        eventLogger.logEvent("Xml news file has parsed!");
     }
 }

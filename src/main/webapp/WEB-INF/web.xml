@@ -26,23 +26,9 @@
         <param-value>/WEB-INF/NewsAgregator-servlet.xml</param-value>
     </context-param>
 
-    <filter>
-        <filter-name>newsFilter</filter-name>
-        <filter-class>news_treatment.news_filters.NewsFilter</filter-class>
-    </filter>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-    <filter-mapping>
-        <filter-name>newsFilter</filter-name>
-        <url-pattern>/news</url-pattern>
-    </filter-mapping>
-
-    <!--<listener>-->
-    <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-    <!--</listener>-->
-
-
-    <!--<listener>-->
-    <!--<listener-class>news_treatment.logging.LoggerListener</listener-class>-->
-    <!--</listener>-->
 
 </web-app>
