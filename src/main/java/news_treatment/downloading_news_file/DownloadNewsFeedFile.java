@@ -1,4 +1,4 @@
-package com.get_news_feed_file;
+package news_treatment.downloading_news_file;
 
 
 import configuration.sources.SourceConfig;

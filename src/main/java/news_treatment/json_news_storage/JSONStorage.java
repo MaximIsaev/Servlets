@@ -1,4 +1,4 @@
-package com.json_news_item;
+package news_treatment.json_news_storage;
 
 
 import org.json.simple.JSONArray;
@@ -8,29 +8,32 @@ import java.io.PrintWriter;
 
 public class JSONStorage {
 
+    public JSONArray getJsonNewsStorageList() {
+        return jsonNewsStorageList;
+    }
+
     private JSONArray jsonNewsStorageList = new JSONArray();
 
     public void addNewJsonRecord(JSONObject rec) {
         jsonNewsStorageList.add(rec);
     }
 
-    public void displayContent(PrintWriter out, int newsCountForDisplay) {
+//    public void displayContent(PrintWriter out, int newsCountForDisplay) {
+//
+//        if (newsCountForDisplay == 0) {
+//            out.print(jsonNewsStorageList.toString());
+//        } else {
+//            newsPicks(out, newsCountForDisplay);
+//        }
+//    }
 
-
-        if (newsCountForDisplay == 0) {
-            out.print(jsonNewsStorageList.toString());
-        } else {
-            newsPicks(out, newsCountForDisplay);
-        }
-    }
-
-    private void newsPicks(PrintWriter out, int newsCountForDisplay) {
-        JSONArray storageForDisplay = new JSONArray();
-        for (int i = 0; i < newsCountForDisplay; i++) {
-            storageForDisplay.add(jsonNewsStorageList.get(i));
-        }
-        out.print(storageForDisplay.toString());
-    }
+//    private void newsPicks(PrintWriter out, int newsCountForDisplay) {
+//        JSONArray storageForDisplay = new JSONArray();
+//        for (int i = 0; i < newsCountForDisplay; i++) {
+//            storageForDisplay.add(jsonNewsStorageList.get(i));
+//        }
+//        out.print(storageForDisplay.toString());
+//    }
 
     //Using for easy viewing
     public static String encodeHtmlTag(String tag) {

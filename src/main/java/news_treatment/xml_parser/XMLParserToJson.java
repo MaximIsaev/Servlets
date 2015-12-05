@@ -1,7 +1,8 @@
-package com.xml_parser;
+package news_treatment.xml_parser;
 
-import com.json_news_item.JSONStorage;
+import news_treatment.json_news_storage.JSONStorage;
 import configuration.sources.SourceConfig;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ public class XMLParserToJson {
     }
 
 
-    public JSONStorage parseToJson(String xmlNewsDownloadedFilePath) {
+    public JSONArray parseToJson(String xmlNewsDownloadedFilePath) {
 
         JSONStorage jsonStorage = new JSONStorage();
         try {
@@ -50,7 +51,7 @@ public class XMLParserToJson {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonStorage;
+        return jsonStorage.getJsonNewsStorageList();
     }
 
     private void getItemsChildNodes(NodeList channelNodes, int itemCount, JSONStorage jsonStorage) throws IOException {

@@ -1,4 +1,4 @@
-package com.news_session;
+package news_treatment.news_session;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +10,17 @@ public class NewsSession {
     private boolean sessionFlag = false;
     private long userCount = 0;
 
-    public void checkSession(HttpServletRequest request) {
+    public boolean isFirstTime(HttpServletRequest request) {
 
         HttpSession httpSession = request.getSession(true);
 
         Integer ival = (Integer) httpSession.getAttribute(SESSION_ID_KEY);
         if (ival == null) {
             setSessionAttribute(httpSession, 1, true);
+            return true;
         } else {
             setSessionAttribute(httpSession, ival + 1, false);
+            return false;
         }
     }
 
