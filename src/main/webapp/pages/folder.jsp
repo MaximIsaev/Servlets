@@ -17,16 +17,22 @@
     <INPUT TYPE=submit value="Check folder">
 </form>
 
-<br>
-${existExpression}
-<br>
-
-<p1><b>Content of folder:${imgFolderHomePath}</b><br></p1>
-
-<c:forEach var="item" items="${folders}">
-    <li><c:out value="${item}"/></li>
-    <br>
-</c:forEach>
+<c:choose>
+    <c:when test="${existExpression == null}">
+        <br>
+        ${existExpression}
+        <br>
+    </c:when>
+    <c:when test="${existExpression != null}">
+        <br>
+        ${existExpression}
+        <br>
+        <p1><b>Content of folder: ${imgFolderHomePath}</b><br></p1>
+        <c:forEach var="item" items="${content}">
+            <li><c:out value="${item}"/></li>
+        </c:forEach>
+    </c:when>
+</c:choose>
 </body>
 </html>
 

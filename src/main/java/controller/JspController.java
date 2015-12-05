@@ -1,6 +1,5 @@
 package controller;
 
-
 import news_treatment.jsp_handler.JspView;
 import news_treatment.news_session.NewsSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +24,21 @@ public class JspController {
     public ModelAndView sendJsp(HttpServletRequest request) throws IOException {
 
         ModelAndView model = new ModelAndView("folder");
-        List<String> folders;
+        List<String> content;
         String greeting = "Welcome!";
         if (session.isFirstTime(request)) {
             model.addObject("greeting", greeting);
         }
-        String existExpression = jspView.checkFields(request);
+
+        String folder_name = request.getParameter("Folder_name");
+        String existExpression = jspView.checkFields(folder_name);
         model.addObject("existExpression", existExpression);
         String imgFolderHomePath = jspView.getImgFolderHomePath();
         model.addObject("imgFolderHomePath", imgFolderHomePath);
-        jspView.getImgFolderContent();
-        folders = jspView.getFilesNamesInImgFolder();
-        model.addObject("folders", folders);
+        content = jspView.getImgFolderContent();
+        model.addObject("content", content);
+
         return model;
     }
+
 }

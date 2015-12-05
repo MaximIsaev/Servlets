@@ -1,7 +1,6 @@
 package controller;
 
 import configuration.NewsProcessing;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +15,9 @@ import java.io.IOException;
 @Controller
 public class NewsController {
 
-
     @Autowired
     NewsProcessing newsProcessing;
+
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
     public String getJsonNews(Model model) throws ServletException, IOException, ParserConfigurationException, SAXException {
@@ -26,4 +25,6 @@ public class NewsController {
         model.addAttribute("news", newsProcessing.getNews());
         return "jsonTemplate";
     }
+
+
 }

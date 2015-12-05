@@ -10,17 +10,21 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <context:component-scan base-package="controller"/>
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/pages/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+
+    <mvc:interceptors>
+        <bean id="interceptor" class="news_treatment.interceptors.NewsInterceptor">
+            <constructor-arg ref="authorFilter"/>
+        </bean>
+    </mvc:interceptors>
+
+
+    <bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    <bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+
     <mvc:annotation-driven/>
 
-    <!--<bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>-->
-    <!--<bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>-->
 
-
-    <bean id="jspView" class="news_treatment.jsp_handler.JspView"/>
     <bean id="newsProcessing" class="configuration.NewsProcessing"/>
     <bean id="sourceConfig" class="configuration.sources.SourceConfig" scope="prototype"/>
 
@@ -32,14 +36,20 @@
     </bean>
     <bean id="jsonStorage" class="news_treatment.json_news_storage.JSONStorage" scope="prototype"/>
 
-    <!-- change to interceptor-->
-    <bean id="filterByAuthor" class="news_treatment.news_filters.FilteringByAuthor">
-        <constructor-arg value="admin"/>
-    </bean>
-
-
     <bean id="newsSession" class="news_treatment.news_session.NewsSession" scope="prototype"/>
     <bean id="downloadNewsFeedFile" class="news_treatment.downloading_news_file.DownloadNewsFeedFile" scope="prototype">
         <constructor-arg ref="sourceConfig"/>
+    </bean>
+
+    <bean id="jspView" class="news_treatment.jsp_handler.JspView"/>
+
+
+    <bean id="authorFilter" class="news_treatment.interceptors.AuthorFilter">
+        <constructor-arg value=""/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 </beans>
